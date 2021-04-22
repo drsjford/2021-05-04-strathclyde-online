@@ -50,12 +50,20 @@ article {
 }
 
 /* Level 1 Background
-
-
 These are section separators. Set them to Hutton blue
 */
 slides > slide.dark {
     background: #5D9731 !important;
+}
+
+
+/* List and paragraph element text is black */
+li {
+  color: black;
+}
+
+p {
+  color: black;
 }
 
 
@@ -118,6 +126,13 @@ Highly-translucent Hutton green, with small text.
     padding-left: 2px;
     padding-right: 2px;
     padding-bottom: 2px;
+}
+
+/* Highly-translucent Faculty Green, with small text. */
+.section {
+    color: black;
+    background: rgba(49, 151, 96, 0.25);
+    width: 100%;
 }
 
 /* Attention

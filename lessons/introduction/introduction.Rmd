@@ -20,11 +20,39 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Welcome
 
-<div class="attention">
-What to expect
+<div class="section">
+Who Are Your Instructors?
 </div>
 
+> - **Leighton Pritchard**
+>   - Computational Biologist (SIPBS, Strathclyde)
+>   - Programming for 40 years (and still learning how to code!)
+>   - Carpentries instructor for ≈6 years
 
+> - **Steven Ford**
+>   - Teaching Associate (SIPBS, Strathclyde)
+
+> - **Helpers**
+>   - Emma Hobbs, Angelika Kiepas, David Mark, John Munnoch, Alemao Sanchez, Darren Scobie
+
+## Welcome
+
+<div class="section">
+Prerequisites
+</div>
+
+- No prior programming/data science knowledge is required
+- Installed the required software on your own machines
+  - `git bash` (Windows)
+  - a text editor (**NOT WORD!**)
+  - `RStudio` and `R` (all platforms)
+  - `OpenRefine` (all platforms)
+  
+<div class="highlight">
+What if I haven't done this?
+</div>
+
+Please "raise your hand" in Zoom, and a helper will assist you
 
 
 # 2. Housekeeping
@@ -42,3 +70,11 @@ Please do take notes on the course `etherpad`:
 * **Ask questions**: get detailed answers with links and examples
 * **A record/reference for after the course**
 </div>
+
+
+## Code of Conduct
+
+The Carpentries have a Code of Conduct (linked from the Etherpad)
+
+![]()
+
