@@ -1,0 +1,44 @@
+---
+title: 'IBioIC Carpentries'
+author: "Leighton Pritchard, Steven Ford"
+date: "4-5/5/2021"
+output:
+  ioslides_presentation:
+    css: ./includes/custom.css
+    font-family: 'Helvetica'
+    widescreen: True
+    self_contained: True
+    logo: images/science_logo_400x400.jpg
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1. Welcome
+
+## Welcome
+
+<div class="attention">
+What to expect
+</div>
+
+
+
+
+# 2. Housekeeping
+
+## Etherpad
+
+<div class="attention">
+Please do take notes on the course `etherpad`:
+</div>
+
+[https://pad.carpentries.org/2021-05-04-strathclyde-online](https://pad.carpentries.org/2021-05-04-strathclyde-online)
+
+<div class="highlight">
+* **Communal notes**: share your understanding, and benefit from others
+* **Ask questions**: get detailed answers with links and examples
+* **A record/reference for after the course**
+</div>
