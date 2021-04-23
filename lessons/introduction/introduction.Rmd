@@ -33,7 +33,8 @@ Who Are Your Instructors?
 >   - Teaching Associate (SIPBS, Strathclyde)
 
 > - **Helpers**
->   - Emma Hobbs, Angelika Kiepas, David Mark, John Munnoch, Alemao Sanchez, Darren Scobie
+>   - Emma Hobbs (St Andrews), Angelika Kiepas, David Mark, John Munnoch, Alemao Sanchez, Darren Scobie (Strathclyde)
+
 
 ## Welcome
 
@@ -43,19 +44,48 @@ Prerequisites
 
 - No prior programming/data science knowledge is required
 - Installed the required software on your own machines
-  - `git bash` (Windows)
-  - a text editor (**NOT WORD!**)
+  - `git bash` (Windows only; use terminal on macOS/Linux)
   - `RStudio` and `R` (all platforms)
+  - a text editor (**NOT WORD!**)
   - `OpenRefine` (all platforms)
   
 <div class="highlight">
-What if I haven't done this?
+What if I haven't done this, yet?
 </div>
 
 Please "raise your hand" in Zoom, and a helper will assist you
 
 
-# 2. Housekeeping
+# 2. Schedule
+
+## Timetable
+
+<div class="attention">
+Full schedule on the course webpage:
+</div>
+
+- [https://sipbs-compbiol.github.io/2021-05-04-strathclyde-online/](https://sipbs-compbiol.github.io/2021-05-04-strathclyde-online/)
+
+- Day 1, AM: (Unix) Shell
+- Day 1, PM: `R` part 1
+- Day 2, AM: `OpenRefine`
+- Day 2, PM: `R` part 2
+
+
+## Lesson Structures
+
+- Each lesson lasts about 3hr
+- 3x 45 minute sections
+- 2x 15 minute breaks
+
+- 1hr for lunch
+
+<div class="highlight">
+Zoom is tiring!
+</div>
+
+
+# 3. Housekeeping
 
 ## Etherpad
 
