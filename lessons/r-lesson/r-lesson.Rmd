@@ -1,5 +1,5 @@
 ---
-title: 'DAta Management and Visualisation in R'
+title: 'Data Management and Visualisation in R'
 author: "Leighton Pritchard"
 date: "4-5/5/2021"
 output:
@@ -16,5 +16,5 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# 1. Introduction: Welcome to `R`
+# 1. Introduction: Welcome to R
 
