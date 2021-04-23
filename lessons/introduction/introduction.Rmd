@@ -75,17 +75,66 @@ Full schedule on the course webpage:
 ## Lesson Structures
 
 - Each lesson lasts about 3hr
+
+<div class="highlight">
+Zoom can be tiring!
+</div>
+
 - 3x 45 minute sections
 - 2x 15 minute breaks
 
 - 1hr for lunch
 
-<div class="highlight">
-Zoom is tiring!
-</div>
+
+## Workshop Roles
+
+- **You**
+  - get as much from the course as you can
+  - code along, attempt exercises, ask questions, share knowledge
+- **Instructors**
+  - prepare and lead you through the course material (live coding)
+- **Helpers**
+  - monitor EtherPad and Zoom chat to assist you 1:1 and as a group
 
 
 # 3. Housekeeping
+
+
+## Code of Conduct
+
+The Carpentries have a Code of Conduct (linked from the Etherpad)
+
+[https://docs.carpentries.org/topic_folders/policies/index_coc.html](https://docs.carpentries.org/topic_folders/policies/index_coc.html)
+
+- You can report issues and concerns confidentially to Leighton, Steve, or one of the helpers
+
+- If we're the problem…
+  - [coc@carpentries.org](coc@carpentries.org)
+  - [confidential@carpentries.org](confidential@carpentries.org)
+  
+## Help
+
+<div class="highlight">
+How do I get help?
+</div>
+
+- **Raise your hand in Zoom**
+  - (a helper will assist - 1:1 guidance)
+- **Post a question in the chat**
+  - (a helper will triage - 1:1 guidance/general points; other learners can help)
+- **Post a question in EtherPad**
+  - (a helper/instructor will assist - general points; other learners can help)
+
+## Feedback
+
+<div class="highlight">
+We need your feedback!
+</div>
+
+- **After each lesson**
+  - A link to a Qualtrics survey will be posted in EtherPad
+- **At the end of the course**
+  - Carpentries post-course online survey
 
 ## Etherpad
 
@@ -101,10 +150,6 @@ Please do take notes on the course `etherpad`:
 * **A record/reference for after the course**
 </div>
 
+# Let's get started…
 
-## Code of Conduct
-
-The Carpentries have a Code of Conduct (linked from the Etherpad)
-
-![]()
 
