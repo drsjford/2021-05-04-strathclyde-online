@@ -44,6 +44,33 @@
 
 -----
 
+## WELCOME: EtherPad
+
+- I've mentioned the EtherPad a few times already, but what is it? and where do you find it?
+- The EtherPad is like a Google Doc
+  - It's a shareable, online document in the cloud
+  - We can all edit it, live and simultaneously
+  - There is a link to it from the course webpage
+
+**DEMO COURSE WEBPAGE AND LINK**
+
+- We ask you to use this for a few reasons
+  - It's a way to all interact together, even while physically separated over Zoom
+  - You can take communal notes
+    - It's fine to take personal notes, but *your insight* might be the missing link for someone else to get what's going on. So we encourage you to share your note-taking in the EtherPad
+  - You can pose questions
+    - This is particularly good for questions where the answer might help a lot of other people
+    - Anyone can answer, not just instructors and helpers
+  - The link persists after the course. You can return to your notes at any time.
+
+**INVITE STUDENTS TO INTRODUCE THEMSELVES ON ETHERPAD**
+
+- Please add your name to the EtherPad, and next to it put
+  - one word to describe your research
+  - one thing you made that you're proud of
+
+-----
+
 ## 2. SCHEDULE
 
 -----
@@ -155,29 +182,6 @@
     - We'll put the links on EtherPad at the end of each lesson
   - Secondly, there's a Carpentries online survey that tells the main organisation how we did.
     - There's a link to this on the course website
-
-----
-
-## HOUSEKEEPING: EtherPad
-
-- I've mentioned the EtherPad a few times already, but what is it? and where do you find it?
-- The EtherPad is like a Google Doc
-  - It's a shareable, online document in the cloud
-  - We can all edit it, live and simultaneously
-  - There is a link to it from the course webpage
-
-**DEMO COURSE WEBPAGE AND LINK**
-
-- We ask you to use this for a few reasons
-  - It's a way to all interact together, even while physically separated over Zoom
-  - You can take communal notes
-    - It's fine to take personal notes, but *your insight* might be the missing link for someone else to get what's going on. So we encourage you to share your note-taking in the EtherPad
-  - You can pose questions
-    - This is particularly good for questions where the answer might help a lot of other people
-    - Anyone can answer, not just instructors and helpers
-  - The link persists after the course. You can return to your notes at any time.
-
-**INVITE STUDENTS TO INTRODUCE THEMSELVES ON ETHERPAD**
 
 -----
 

@@ -56,6 +56,21 @@ What if I haven't done this, yet?
 Please "raise your hand" in Zoom, and a helper will assist you
 
 
+## Etherpad
+
+<div class="attention">
+Please do take notes on the course `etherpad`:
+</div>
+
+[https://pad.carpentries.org/2021-05-04-strathclyde-online](https://pad.carpentries.org/2021-05-04-strathclyde-online)
+
+<div class="highlight">
+* **Communal notes**: share your understanding, and benefit from others
+* **Ask questions**: get detailed answers with links and examples
+* **A record/reference for after the course**
+</div>
+
+
 # 2. Schedule
 
 ## Timetable
@@ -136,19 +151,6 @@ We need your feedback!
 - **At the end of the course**
   - Carpentries post-course online survey
 
-## Etherpad
-
-<div class="attention">
-Please do take notes on the course `etherpad`:
-</div>
-
-[https://pad.carpentries.org/2021-05-04-strathclyde-online](https://pad.carpentries.org/2021-05-04-strathclyde-online)
-
-<div class="highlight">
-* **Communal notes**: share your understanding, and benefit from others
-* **Ask questions**: get detailed answers with links and examples
-* **A record/reference for after the course**
-</div>
 
 # Let's get started…
 
