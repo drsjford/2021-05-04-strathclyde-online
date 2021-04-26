@@ -16,5 +16,49 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# 1. Introduction: Welcome to R
+# 1. Data Analysis
+
+
+## Data-Intensive Research
+
+- **Science and humanities are increasingly data-driven**
+  - Early-career training has not prepared all researchers for this
+  
+<div class="highlight">
+**Research Workflows**
+</div>
+- Enable systematic, replicable and reproducible work
+  - Design principles
+    - **Best practices** for data
+  - Software development methods
+    - **Automation** of repetitive calculations
+ 
+
+## Pipelines and Workflows
+
+<div class="highlight">
+**Pipeline**
+</div>
+- What a computer does
+  - A series of instructions
+  - Data is *piped* through programs, and a result emerges
+
+<div class="highlight">
+**Workflow**
+</div>
+- What a researcher does
+  - Exploring data, developing hypotheses, writing code, interpreting results
+- Outputs include:
+  - datasets, methods, teaching materials, software, papers, etc.
+
+
+## Explore, Refine, Produce (ERP)
+
+<center>
+<img src="images/erp.png" height="440px" />
+</center>
+
+- [Reproduced from Stoudt *et al.* (2021)](https://doi.org/10.1371/journal.pcbi.1008770.g001)
+
+# 2. Welcome to R
 
