@@ -18,6 +18,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # 1. Data Analysis
 
+## Data Analysis in the Scientific Cycle
+
+<center>
+<img src="images/cycle.png" height="575px" />
+</center>
 
 ## Data-Intensive Research
 
@@ -60,5 +65,184 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - [Reproduced from Stoudt *et al.* (2021)](https://doi.org/10.1371/journal.pcbi.1008770.g001)
 
+
 # 2. Welcome to R
 
+
+## Learning Objectives
+
+- Fundamentals of `R` and `RStudio`
+- Fundamentals of programming (in `R`)
+- Data management with the `tidyverse`
+- Publication-quality data visualisation with `ggplot2`
+- Reporting with `RMarkdown`
+
+
+## What is `R`?
+
+- `R` is:
+  - a programming language
+  - the software that interprets/runs programs written in the `R` language
+
+<div class="highlight">
+**Why use `R`**?
+</div>
+
+- free (though commercial support can be bought)
+- widely used
+  - sciences, humanities, engineering, statistics, etc.
+- has many excellent specialised packages for data analysis and visualisation
+- international, friendly user community
+
+<div class="references">
+- RStudio community support: <https://community.rstudio.com/>
+- Stack Overflow: <https://stackoverflow.com/>
+</div>
+
+
+## What is `RStudio`?
+
+<div class="attention">
+**Please start `RStudio`**
+</div>
+
+- `RStudio` is an *integrated development environment* (IDE)
+
+<center>
+<img src="images/rstudio_window.png" width="50%" />
+<img src="images/RStudio-Screenshot.png" width="40%" />
+</center>
+
+<div class="highlight">
+- Script/code editor; Project management
+- Interaction with `R` (console/'scratchpad'); Graphics/visualisation/Help
+</div>
+
+
+## "Why not use `Excel`?"
+
+<div class="highlight">
+- `Excel` is good for some things
+- `R` is excellent for analysis and reproducibility…
+</div>
+
+<center>
+<img src="images/dt160107.gif" width="70%" />
+</center>
+
+- ***Separates data from analysis***
+- Not point-and-click: *every step is explicit and transparent*
+- Easy to share, adapt, reuse, publish analyses with new/modified data (GitHub)
+- `R` can be run on supercomputers, with *extremely* large datasets…
+
+    
+<div class="references">
+* Mike Croucher's MLPM talk: <https://mikecroucher.github.io/MLPM_talk/>
+</div>
+
+## `RStudio` overview - INTERACTIVE DEMO
+
+<center>
+<img src="images/rstudio-start-view.png" width="75%" />
+</center>
+
+
+## Variables
+
+<div class="highlight">
+**Variables** are like *named boxes*
+</div>
+
+* An item (*object*) of data goes in the box (which is called `Name`)
+* When we refer to the box (*variable*) by its name, we really mean *what's in the box*
+
+<center>
+<img src="images/boxes_variables_arrow.png" width="45%" />
+</center>
+
+## Variables - Interactive Demo
+
+```{r, }
+x <- 1 / 40
+x
+x ^ 2
+log(x)
+name <- "Samia"
+name
+```
+
+
+## Naming Variables
+
+<div class="highlight">
+**Variable names are documentation**
+</div>
+
+```{r}
+current_temperature = 28.6
+subjectID = "GCF_00001236452.1"
+GPS_Location = "54N, 36E"
+```
+
+- descriptive, but not *too* long
+- letters, numbers, underscores, and periods (`[a-zA-z0-9_.]`)
+- cannot contain whitespace or start with a number (`x2` is allowed, `2x` is not)
+- case sensitive (`Weight` is not the same as `weight`)
+- **do not reuse names of built-in functions**
+- Consistent style:
+  - `lower_snake`, `UPPER_SNAKE`, `lowerCamelCase`, `UpperCamelCase`
+
+
+## Functions
+
+<div class="highlight">
+**Functions (`log()`, `sin()` etc.) ≈ "canned script"**
+</div>
+
+- automate complicated tasks
+- make code more readable and reusable
+
+<div class="attention">
+- Functions usually take *arguments* (*input*)
+- Functions often *return* values (*output*)
+</div>
+
+- Some functions are built-in (in *base* packages, e.g. `sqrt()`, `lm()`, `plot()`)
+- Some functions are *imported* in *libraries*
+
+
+## Getting Help in `R`
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+```{r, eval=FALSE}
+args(fname)            # arguments for fname
+?fname                 # help page for fname
+help(fname)            # help page for fname
+??fname                # any mention of fname
+help.search("text")    # any mention of "text"
+vignette(fname)        # worked examples for fname
+vignette()             # show all available vignettes
+```
+
+## Challenge 01 (1min)
+
+<div class="highlight">
+What will be the value of each variable after each statement in the following program?
+</div>
+
+```{r, echo=TRUE}
+mass <- 47.5
+age <- 122
+mass <- mass * 2.3
+age <- age - 20
+```
+
+* `mass = 47.5, age = 102`
+* `mass = 109.25, age = 102`
+* `mass = 47.5, age = 122`
+* `mass = 109.25, age = 122`
