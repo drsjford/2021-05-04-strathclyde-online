@@ -472,6 +472,8 @@ Error in vignette(two - table) : object 'two' not found
 
 ## Challenge 01
 
+Link: [https://strathsci.qualtrics.com/jfe/form/SV_eG17F5atskDqbC6](https://strathsci.qualtrics.com/jfe/form/SV_eG17F5atskDqbC6)
+
 Solution:
 
 `mass <- 47.5`
