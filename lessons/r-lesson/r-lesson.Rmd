@@ -762,3 +762,112 @@ mask <- c(TRUE, FALSE, TRUE, FALSE, TRUE)
 x[mask]
 x[x > 7]
 ```
+
+
+# 6. Dataframes
+
+
+## Let's look at a `data.frame`
+
+- The `cats` data is a `data.frame`
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+```{r, eval=FALSE}
+> class(cats)
+[1] "data.frame"
+> cats
+    coat weight likes_string
+1 calico    2.1            1
+2  black    5.0            0
+3  tabby    3.2            1
+```
+
+
+## What is a `data.frame`?
+
+<div class="highlight">
+- The standard `R` data structure for storing tabular, *rectangular* data
+</div>
+
+- A named `list` of `vector`s having identical lengths.
+  - Each column is a `vector`
+  - Each `vector` can be a different data type
+    
+<div class="attention">
+- This is very much **LIKE** a spreadsheet, but…
+  - **Columns are constrained to a type**
+  - **Columns are all the same length**
+</div>
+
+
+## Creating a `data.frame`
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+```{r}
+# Create a data frame
+df <- data.frame(a=c(1,2,3), b=c('eeny', 'meeny', 'miney'),
+                 c=c(TRUE, FALSE, TRUE))
+summary(df)
+```
+
+
+## Saving a `data.frame` to file
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+```{r, eval=FALSE}
+write.table(df, "data/df_example.tab", sep="\t")
+```
+
+We need to provide
+
+- the `data.frame`
+- the path to the file being written
+- a column separator
+
+
+## Loading a `data.frame`
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+<div class="highlight">
+- Download data from [https://raw.githubusercontent.com/resbaz/r-novice-gapminder-files/master/data/gapminder-FiveYearData.csv](https://raw.githubusercontent.com/resbaz/r-novice-gapminder-files/master/data/gapminder-FiveYearData.csv)
+- Put the file in the `data/` directory
+
+**The link is available on the course [Etherpad](https://pad.carpentries.org/2021-05-04-strathclyde-online)**
+</div>
+
+```{r, eval=FALSE}
+gapminder <- read.table("data/gapminder-FiveYearData.csv", sep=",", header=TRUE)
+```
+
+* `R` can also read data direct from the internet
+
+```{r}
+url <- paste("https://raw.githubusercontent.com/resbaz/",
+             "r-novice-gapminder-files/master/data/",
+             "gapminder-FiveYearData.csv", sep = '')
+gapminder <- read.table(url, sep=",", header=TRUE)
+```
+
+<div class="references">
+EtherPad: <https://pad.carpentries.org/2021-05-04-strathclyde-online>
+</div>
