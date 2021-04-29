@@ -556,7 +556,7 @@ This will subtract 20 from the existing value of 122 to give a new value of 102 
 
 -----
 
-**SLIDE: Project Management in `RStudio`**
+## Project Management in `RStudio`
 
 - `RStudio` **TRIES TO BE HELPFUL** and provides the 'Project' concept
     - Keeps **ALL PROJECT FILES IN A SINGLE DIRECTORY**
@@ -599,7 +599,7 @@ This will subtract 20 from the existing value of 122 to give a new value of 102 
 
 -----
 
-**SLIDE: Working in RStudio**
+## Working in RStudio
 
 - `RStudio` offers **SEVERAL WAYS TO WRITE CODE**
     - We'll not see all of them today
@@ -665,7 +665,7 @@ cats <- read.csv(file = "data/feline_data.csv")
 
 -----
 
-**SLIDE: Our Task**
+## Our Task
 
 - We've got some medical data relating to a new treatment for arthritis
 - There are some measurements of patient inflammation, taken over a period of days post-treatment for each patient
@@ -682,4 +682,324 @@ cats <- read.csv(file = "data/feline_data.csv")
 
 ![images/red_green_sticky.png](images/red_green_sticky.png)
 
+----
+
+## Loading Data - INTERACTIVE DEMO
+
+- We've already created some cat data manually, but **THIS IS UNUSUAL** - most data comes in the form of plain text files
+
+**START DEMO**
+
+- **INSPECT DATA IN FILES WINDOW**
+    - Click on filename, and select `View File`
+    - Note: **THERE IS NO HEADER** and **THERE ARE NO ROW NAMES**
+    - Ask: **IS THIS WELL-FORMATTED DATA?**
+    - I happen to know that there is **one row per patient, and the columns are days, in turn, post-treatment**, and **measurements are inflammation levels**
+      - **WE SHOULD RECORD THIS SOMEWHERE AS METADATA**
+- **WHAT IS THE DATA TYPE**
+    - Tabular, with **EACH COLUMN SEPARATED BY A COMMA**, so **CSV**
+    - **IN THE CONSOLE** use `read.csv()` to read the data in
+    - Note: **IF WE DON'T ASSIGN THE RESULT TO A VARIABLE WE JUST SEE THE DATA**
+- **CREATE A NEW SCRIPT**
+    - Click the **triangle next to the new document icon**
+    - Add the code and **SAVE AS `scripts/inflammation`** (`RStudio` adds the extension)
+    - See that the file appears in `Files` window
+
+```R
+# Preliminary analysis of inflammation in arthritis patients
+
+# Load data (no headers, CSV)
+data <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
+```
+
+- **INSPECT THE DATA**
+    - `Source` the script
+    - Check the `Environment` window: 60 observations (patients) of 40 variables (days)
+    - **CLICK ON `data`**
+    - **COLUMN HEADERS ARE PROVIDED: `Vn`** for *variable n*
+    - `dim()` - *dimensions* of data: rows X columns
+    - `length()` - number of columns in the table
+    - `ncol()` - number of columns in the table
+    - `nrow()` - number of rows in the table
+
+```R
+> head(data, n = 2)
+  V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20 V21 V22 V23 V24 V25 V26
+1  0  0  1  3  1  2  4  7  8   3   3   3  10   5   7   4   7   7  12  18   6  13  11  11   7   7
+2  0  1  2  1  2  1  3  2  2   6  10  11   5   9   4   4   7  16   8   6  18   4  12   5  12   7
+  V27 V28 V29 V30 V31 V32 V33 V34 V35 V36 V37 V38 V39 V40
+1   4   6   8   8   4   4   5   7   3   4   2   3   0   0
+2  11   5  11   3   3   5   4   4   5   5   1   1   0   1
+> dim(data)
+[1] 60 40
+> length(data)
+[1] 40
+> ncol(data)
+[1] 40
+> nrow(data)
+[1] 60
+```
+
 -----
+
+## Challenge 02
+
+-*SOLUTION**
+
+```R
+read.csv(file='file.csv', sep=';', dec=',')
+```
+
+![images/red_green_sticky.png](images/red_green_sticky.png)
+
+-----
+
+## Indexing Data
+
+- Our inflammation is in a **TABLE**, also known as an **ARRAY** or **MATRIX**
+- There is a **SET OF CONVENTIONS FOR REFERRING TO THIS DATA**
+  - `R` keeps to these conventions
+
+- If we want to refer to a particular row (equivalent to a patient), we refer to the number down the side, in green
+  - Patient 2 is row 2
+
+- If we want to refer to a particular column (equivalent to a day of study), we refer to the number along the top, in magenta
+  - Day 30 is column 30
+
+- To refer to a specific combination of patient and day, we need to refer to the row first, then the column
+  - Patient 3 on day 2 is the element *a32*, here.
+
+-----
+
+## Indexing Data - INTERACTIVE DEMO
+
+- **HOW DO WE GET ACCESS TO A SUBSET OF THE DATA?**
+
+- We can refer to an element in our dataset by *indexing* it
+    - We **LOCATE A SINGLE ELEMENT as `[row, column]` in square brackets**
+
+```R
+> ncol(data)
+[1] 40
+> data[1,1]
+[1] 0
+> data[50,1]
+[1] 0
+> data[50,20]
+[1] 16
+> data[30,20]
+[1] 16
+```
+
+- To get a **RANGE OF VALUES**, use the `:` separator to mean 'to':
+
+```R
+> data[1:4, 1:4]   # rows 1 to 4; columns 1 to 4
+  V1 V2 V3 V4
+1  0  0  1  3
+2  0  1  2  1
+3  0  1  1  3
+4  0  0  2  0
+> data[30:32, 20:22]
+   V20 V21 V22
+30  16  14  15
+31  16  13   7
+32   9  19  15
+```
+
+- To get a **WHOLE ROW OR COLUMN**, leave that entry blank
+
+```R
+> data[5,]
+  V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20 V21 V22 V23 V24 V25 V26
+5  0  1  1  3  3  1  3  5  2   4   4   7   6   5   3  10   8  10   6  17   9  14   9   7  13   9
+  V27 V28 V29 V30 V31 V32 V33 V34 V35 V36 V37 V38 V39 V40
+5  12   6   7   7   9   6   3   2   2   4   2   0   1   1
+> data[,16]
+ [1]  4  4 15  8 10 15 13  9 11  6  3  8 12  3  5 10 11  4 11 13 15  5 14 13  4  9 13  6  7  6 14
+[32]  3 15  4 15 11  7 10 15  6  5  6 15 11 15  6 11 15 14  4 10 15 11  6 13  8  4 13 12  9
+```
+
+-----
+
+## Summary Functions - INTERACTIVE DEMO
+
+- **`R` was designed for data analysis**, so has many built-in functions for analysing and describing data
+    - **TALK THROUGH CODE IN CONSOLE**
+
+```R
+> max(data)
+[1] 20
+> max(data[2,])
+[1] 18
+> max(data[,7])
+[1] 6
+> min(data[,7])
+[1] 1
+> mean(data[,7])
+[1] 3.8
+> median(data[,7])
+[1] 4
+> sd(data[,7])
+[1] 1.725187
+```
+
+-----
+
+## Repetitive Calculations - INTERACTIVE DEMO
+
+- We might want to **CALCULATE MEAN INFLAMMATION FOR EACH PATIENT**, but doing it the way we've just seen is tedious and slow.
+  - What we'd like to do is **APPLY THE SAME FUNCTION TO EACH ROW**
+- Happily **COMPUTERS WERE INVENTED TO SAVE US THE HASSLE**
+- We could automate this task in any of several ways available in `R`
+  - `R` has an `apply()` function exactly for this
+  - **IN THE CONSOLE**
+
+- `apply()` takes three arguments:
+  - `X` is your dataset
+  - `MARGIN` is the *axis* of the dataset
+    - rows are `1`
+    - columns are `2`
+    - datasets can be multidimensional, so the margins can go higher than 2
+  - `FUN` is the function we want to apply
+- So, here, we are applying the `mean()` function to each `row` in the dataset called `data`
+  - This gives us the average inflammation per patient
+
+```R
+> apply(X = data, MARGIN = 1, FUN = mean)
+ [1] 5.450 5.425 6.100 5.900 5.550 6.225 5.975 6.650 6.625 6.525 6.775 5.800 6.225 5.750 5.225
+[16] 6.300 6.550 5.700 5.850 6.550 5.775 5.825 6.175 6.100 5.800 6.425 6.050 6.025 6.175 6.550
+[31] 6.175 6.350 6.725 6.125 7.075 5.725 5.925 6.150 6.075 5.750 5.975 5.725 6.300 5.900 6.750
+[46] 5.925 7.225 6.150 5.950 6.275 5.700 6.100 6.825 5.975 6.725 5.700 6.250 6.400 7.050 5.900
+```
+
+- **IN OUR ANALYSIS SCRIPT** we want to assign these values to a variable, and **ALSO CALCULATE AVERAGE BY DAY**
+    - So long as we provide arguments in the correct order, **WE DON'T NEED TO PROVIDE ARGUMENT NAMES** - true for most `R` functions
+
+```R
+# Calculate average inflammation by patient and day
+avg_inflammation_patient <- apply(X = data, MARGIN = 1, FUN = mean)
+avg_inflammation_day <- apply(data, 2, mean)
+```
+
+- **RUN THE LINES**
+    - Note that the values appear in the Environment tab
+- Like many common operations, there's an `R` function that's a shortcut
+    - **IN THE CONSOLE**
+
+```R
+> rowMeans(data)
+ [1] 5.450 5.425 6.100 5.900 5.550 6.225 5.975 6.650 6.625 6.525 6.775 5.800 6.225 5.750 5.225
+[16] 6.300 6.550 5.700 5.850 6.550 5.775 5.825 6.175 6.100 5.800 6.425 6.050 6.025 6.175 6.550
+[31] 6.175 6.350 6.725 6.125 7.075 5.725 5.925 6.150 6.075 5.750 5.975 5.725 6.300 5.900 6.750
+[46] 5.925 7.225 6.150 5.950 6.275 5.700 6.100 6.825 5.975 6.725 5.700 6.250 6.400 7.050 5.900
+> colMeans(data)
+        V1         V2         V3         V4         V5         V6         V7         V8         V9
+ 0.0000000  0.4500000  1.1166667  1.7500000  2.4333333  3.1500000  3.8000000  3.8833333  5.2333333
+       V10        V11        V12        V13        V14        V15        V16        V17        V18
+ 5.5166667  5.9500000  5.9000000  8.3500000  7.7333333  8.3666667  9.5000000  9.5833333 10.6333333
+       V19        V20        V21        V22        V23        V24        V25        V26        V27
+11.5666667 12.3500000 13.2500000 11.9666667 11.0333333 10.1666667 10.0000000  8.6666667  9.1500000
+       V28        V29        V30        V31        V32        V33        V34        V35        V36
+ 7.2500000  7.3333333  6.5833333  6.0666667  5.9500000  5.1166667  3.6000000  3.3000000  3.5666667
+       V37        V38        V39        V40
+ 2.4833333  1.5000000  1.1333333  0.5666667
+```
+
+-----
+
+## Base Graphics
+
+- We're doing all this work to try to **GAIN INSIGHT INTO OUR DATA**
+- **VISUALISATION IS A KEY ROUTE TO INSIGHT**
+
+- `R` has many graphics packages - some of which produce extremely beautiful images, or are tailored to a specific problem domain
+
+- The built-in graphics are known as **BASE GRAPHICS**
+- They may not be as pretty, or as immediately suited for all circumstances as some other packages, but they are still very powerful
+  - `ggplot2` is built out of base graphics
+
+-----
+
+## Plotting - INTERACTIVE DEMO
+
+- **IN THE SCRIPT**
+    - `R`'s **`plot()` FUNCTION IS GENERAL AND WORKS FOR MANY KINDS OF DATA**
+    - **RUN EACH LINE IN TURN**
+    - **NOTE WHERE PLOTS SHOW** (Plot window)
+    - Opportunity to note: **VARIABLES HELP READABILITY**
+    - **USE ARROW BUTTONS** to cycle through plots
+
+```R
+# Plot data summaries
+# Average inflammation by patient
+plot(avg_inflammation_patient)
+
+# Average inflammation per day
+plot(avg_inflammation_day)
+
+# Maximum inflammation per day
+max_inflammation_day <- apply(data, 2, max)
+plot(max_inflammation_day)
+
+# Minimum inflammation per day
+plot(apply(data, 2, min))
+
+# Show a histogram of average patient inflammation
+hist(avg_inflammation_patient)
+```
+
+- **THE `hist()` FUNCTION PLOTS A HISTOGRAM OF INPUT DATA FREQUENCY/COUNT**
+    - The choice of bin sizes/*breaks* could be improved
+    - We need to **PROVIDE THE BOUNDARIES BETWEEN BINS**
+    - **IN THE CONSOLE**
+
+```R
+hist(avg_inflammation_patient, breaks=c(5, 6, 7, 8))
+```
+
+- We'd have to **TYPE IN A LOT OF NUMBERS** to get smaller breaks, which is **SLOW**
+    - The `seq()` function generates a sequence of numbers for us
+
+```R
+> seq(5, 8)
+[1] 5 6 7 8
+> hist(avg_inflammation_patient, breaks=seq(5, 8))
+```
+
+- We can **SET THE INTERVAL OF THE SEQUENCE**
+
+```R
+> seq(5, 8, by=0.2)
+ [1] 5.0 5.2 5.4 5.6 5.8 6.0 6.2 6.4 6.6 6.8 7.0 7.2 7.4 7.6 7.8 8.0
+> hist(avg_inflammation_patient, breaks=seq(5, 8, by=0.2))
+```
+
+- **IN THE SCRIPT**
+    - Add a line with the histogram for average patient inflammation
+
+```R
+# Show a histogram of average patient inflammation
+hist(avg_inflammation_patient, breaks=seq(5, 8, by=0.2))
+```
+
+- **IN THE SCRIPT**
+    - Demonstrate changing the input file
+    - **CHANGING FILENAME IN A SCRIPT IS QUICKER THAN RETYPING ALL THE COMMANDS**
+    - **THE ANALYSIS IS REPRODUCIBLE ON NEW DATA**
+
+-----
+
+## Challenge 03 (5min)
+
+```R
+# Plot standard deviation by day
+plot(apply(data, 2, sd))
+hist(avg_inflammation_day, breaks=seq(5, 8, by=0.2))
+```
+
+![images/red_green_sticky.png](images/red_green_sticky.png)
+
+-----
+
+## 4. Data Types and Structures in `R`
