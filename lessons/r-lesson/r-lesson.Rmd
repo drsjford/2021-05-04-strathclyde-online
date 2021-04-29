@@ -871,3 +871,337 @@ gapminder <- read.table(url, sep=",", header=TRUE)
 <div class="references">
 EtherPad: <https://pad.carpentries.org/2021-05-04-strathclyde-online>
 </div>
+
+
+## Investigating `gapminder`
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+```{r, eval=FALSE}
+str(gapminder)              # structure of the data.frame
+typeof(gapminder$year)      # data type of a column
+length(gapminder)           # length of the data.frame
+nrow(gapminder)             # number of rows in data.frame
+ncol(gapminder)             # number of columns in data.frame
+dim(gapminder)              # number of rows and columns in data.frame
+colnames(gapminder)         # column names from data.frame
+head(gapminder)             # first few rows of dataframe
+summary(gapminder)          # summary of data in data.frame columns
+```
+
+
+# 7. Packages
+
+
+## Packages
+
+In `R`:
+
+- a *package* is a collection (or *library*) of reusable code
+- many useful and specialist tools are distributed as packages
+- over 10,000 packages are available at `CRAN`
+- you can distribute your own code as a package
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+```{r eval=FALSE}
+installed.packages()               # see installed packages
+install.packages("packagename")    # install a new package
+update.packages()                  # update installed packages
+library(packagename)               # import a package for use in your code
+```
+
+<div class="references">
+CRAN - the Comprehensive `R` Archive Network: <https://cran.r-project.org/>
+</div>
+
+
+## Challenge 07 (5min)
+
+Can you check if the following packages are installed on your system, and install them if necessary?
+
+```{r, eval=FALSE}
+dplyr
+ggplot2
+knitr
+```
+
+
+# 8. Creating Publication-<br />Quality Graphics
+
+
+## Visualisation is Critical!
+
+<center>
+<img src="images/how_scientists_see_data.jpg" width="100%" />
+</center>
+
+
+## The Grammar of Graphics
+
+- `ggplot2` is part of the *Tidyverse*, a collection of packages for data science
+  - `ggplot2` is the graphics package
+    
+<div class="highlight">
+- **Implements the "Grammar of Graphics"**
+  - Separates data from its representation
+  - Helps iteratively update/refine plots
+  - Helps build complex, effective visualisations from simple elements
+</div>
+
+<div class="attention">
+- *data*
+- *aesthetics*
+- `geom`s
+- *layers*
+</div>
+
+<div class="references">
+- Tidyverse: <https://www.tidyverse.org/>
+</div>
+
+
+## A Basic Scatterplot
+
+- You can use `ggplot2` like *base graphics*
+  - `qplot()` ≈ `plot()`
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+```{r, eval=FALSE}
+library(ggplot2)
+plot(gapminder$lifeExp, gapminder$gdpPercap, col=gapminder$continent)
+qplot(lifeExp, gdpPercap, data=gapminder, colour=continent)
+```
+
+<center>
+<img src="images/plot_scatterplot.png" width="40%" />
+<img src="images/qplot_scatterplot.png" width="40%" />
+</center>
+
+
+## What is a Plot? *aesthetics*
+
+- Each observation in the *data* is a point
+- A point's *aesthetics* determine how it is rendered
+  - co-ordinates on the image; size; shape; colour
+- *aesthetics* can be constant or mapped to variables
+- **Many different plots can be generated from the same data by changing *aesthetics***
+
+<center>
+<img src="images/qplot_scatterplot.png" width="45%" />
+</center>
+
+## What is a Plot? `geom`s
+
+<div class="highlight">
+`geom` (short for *geometry*) defines the "type" of representation
+</div>
+
+- If data are drawn as points: **scatterplot**
+- If data are drawn as lines: **line plot**
+- If data are drawn as bars: **bar chart** 
+
+<center>
+<img src="images/geom_types.png" width="60%" />
+</center>
+
+<div class="attention">
+- **`ggplot2` provides several `geom` types**
+</div>
+
+
+## What is a Plot? `geom`s
+
+<div class="highlight">
+**The same *data* and *aesthetics* can be shown with different `geom`s**
+</div>
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+```{r, eval=FALSE}
+# Generate plot of GDP per capita against life Expectancy
+p <- ggplot(data=gapminder, aes(x=lifeExp, y=gdpPercap, color=continent))
+p + geom_point()
+p + geom_line()
+```
+
+
+## Challenge 08 (2min)
+
+<div class="highlight">
+Can you create another figure in your script showing how *life expectancy* changes as a function of *time*, as a scatterplot?
+</div>
+
+
+## What is a Plot? *layers*
+
+- We've just used another "Grammar of Graphics" concept: *layers*
+  - `ggplot2` plots are built as *layers*
+    
+<div class="highlight">
+All *layers* have two components
+
+1. *data* and *aesthetics*
+2. a `geom`
+</div>
+
+- *Data* and *aesthetics* can be defined in a *base* `ggplot` object
+  - values from the *base* are *inherited* by the other layers
+  - the *base* can be overridden in other layers
+
+
+## What is a Plot? *layers*
+
+- *Data* and *aesthetics* can be defined in a *base* `ggplot` object
+  - values from the *base* are *inherited* by the other layers
+  - the *base* can be overridden in other layers
+
+```{r, eval=FALSE}
+p <- ggplot(data=gapminder, aes(x=lifeExp, y=gdpPercap, colour=continent))
+p + geom_point()
+```
+
+<center>
+<img src="images/ggplot_layers_1.png" width=80% />
+</center>
+
+
+## What is a Plot? *layers*
+
+- *Data* and *aesthetics* can be defined in a *base* `ggplot` object
+  - values from the *base* are *inherited* by the other layers
+  - the *base* can be overridden in other layers
+
+```{r, eval=FALSE}
+p <- ggplot(data=gapminder, aes(x=lifeExp, y=gdpPercap, colour=continent))
+p + geom_line(aes(group=country))
+```
+
+<center>
+<img src="images/ggplot_layers_2.png" width=80% />
+</center>
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+
+## What is a Plot? *layers*
+
+- We can use several layers of `geom`s to build a plot
+  - `alpha` controls *opacity* for a layer
+
+```{r, eval=FALSE}
+p <- ggplot(data=gapminder, aes(x=lifeExp, y=gdpPercap, color=continent))
+p + geom_line(aes(group=country)) + geom_point(alpha=0.4)
+```
+
+<center>
+<img src="images/ggplot_layers_3.png" width=80% />
+</center>
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+
+## Challenge 09 (5min)
+
+Can you create another figure in your script showing how *life expectancy* changes as a function of *time*, coloured by continent, with two layers:
+
+<div class="highlight">
+- a line plot, grouping points by country
+- a scatterplot showing each data point, with 35% opacity
+</div>
+
+
+## Transformations and `scale`s
+
+- Data transformations are handled with `scale` layers
+
+<div class="highlight">
+- axis scaling (log scales)
+- colour scaling (changing palettes)
+</div>
+
+<center>
+<img src="images/ggplot_layers_4.png" width=80% />
+</center>
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+
+## Statistics layers
+
+- Some `geom` layers transform the dataset
+  - Usually this is a data summary (e.g. smoothing or binning)
+   
+<center>
+<img src="images/ggplot_layers_5.png" width=80% />
+</center>
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+
+## Multi-panel figures
+
+- So far all our plots have all data in a single figure
+- Comparisons can be clearer with multiple panels:
+  - *facets*
+  - "small multiples plots"
+
+<div class="highlight">
+Use the `facet_wrap()` layer to generate grids of plots
+</div>
+    
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+```{r, eval=FALSE}
+# Compare life expectancy over time by continent
+p <- ggplot(data=gapminder, aes(x=year, y=lifeExp, colour=continent,
+                                group=country))
+p <- p + geom_line() + scale_y_log10()
+p + facet_wrap(~continent)
+```
+
+
+## Challenge 10 (5min)
+
+Can you create a scatterplot and contour densities of GDP per capita against population size, with colour filled by continent?
+
+<div class="highlight">
+**ADVANCED:** Transform the *x* axis to better visualise data spread, and use facets to panel density plots by year.
+</div>
