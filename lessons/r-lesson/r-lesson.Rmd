@@ -394,6 +394,12 @@ How would you open it, using `read.csv()`
 </div>
 </center>
 
+<center>
+<div class="attention">
+**USE CHALLENGE LINK ON ETHERPAD**
+</div>
+</center>
+
 
 ## Indexing Data
 
@@ -531,4 +537,228 @@ Can you add plots to your script showing:
 - scatterplot of standard deviation of inflammation across all patients, by day
 - a histogram of average inflammation across all patients, by day
 
+
 # 5. Data Types and <br />Structures in `R`
+
+
+## Learning Objectives
+
+- Basic data types in `R`
+- Common data structures in `R`
+- How to find out the type/structure of `R` data
+- Understand how `R`'s data types and structures relate to your own data
+
+
+## Data Types and Structures in `R`
+
+- `R` is mostly used for data analysis
+- `R` has special *types* and *structures* to help you work with data
+- Much of the focus is on tabular data (*data frames*) 
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+<div class="highlight">
+**Understanding data types, their uses, and how they relate to your own data is key to successful analysis with `R`**
+
+(it's not just about programming)
+</div>
+
+
+## What Data Types Do You Expect?
+
+<center>
+<div class="highlight">
+**What data types would you expect to see?**
+
+What examples of data types can you think of from your own experience?
+</div>
+
+<div class="attention">
+**Please write them into the chat**
+</div>
+</center>
+
+
+## Data Types in `R`
+
+- Data *types* in `R` are *atomic*
+  - All data *structures* are built from these
+    
+<div class="highlight">
+1. **logical**: `TRUE`, `FALSE`
+2. **numeric**:
+    * **integer**: `3`, `2L`, `123456`
+    * **double** (*decimal*): `3.0`, `-23.45`, `pi`
+3. **complex**: `3+0i`, `1+4i`
+4. **character** (*text*): `"a"`, `'SWC'`, `"This is not a string"`
+5. **raw**: binary data (**we won't cover this**)
+</div>
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+
+## Challenge 04 (2min)
+
+Create examples of data with the following characteristics:
+
+<div class="highlight">
+- name: `answer`, type: `logical`
+- name: `height`, type: `numeric`
+- name: `dog_name`, type: `character`
+</div>
+
+For each variable, test that it has the data type you intended
+
+
+## Four Common `R` Data Structures
+
+- `vector`
+- `factor`
+- `list`
+- `data.frame`
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+
+## Challenge 05 (5min)
+
+Vectors are *atomic*: they can contain only a single data *type*
+
+What data type are the following vectors (`xx`, `yy`, `zz`)?
+
+```R
+xx <- c(1.7, "a")
+yy <- c(TRUE, 2)
+zz <- c("a", TRUE)
+```
+
+<div class="highlight">
+Options: `logical`, `integer`, `numeric`, `character`
+</div>
+
+<center>
+<div class="attention">
+**USE CHALLENGE LINK ON ETHERPAD**
+</div>
+</center>
+
+
+## Coercion
+
+- *Coercion* means changing data from one *type* to another
+- `R` will perform *implicit coercion* on vectors to make them atomic
+
+<div class="highlight">
+`logical` $\rightarrow$ `integer` $\rightarrow$ `double` $\rightarrow$ `complex` $\rightarrow$ `character`
+</div>
+
+<center>
+<div class="attention">
+**If there are formatting problems with your data, you might not have the type you expect when you import into `R`**
+</div>
+</center>
+
+- Manual coercion with `as.<type_name>()`
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+
+## Factors
+
+Data comes as one of two types:
+
+- *quantitative*: e.g. integers or real numbers <br />(`weight <- 17.2`; `rooms <- 7`)
+- *categorical*:  e.g. ordered or unordered classes <br />(`grade <- "8"`, `coat <- "brindled"`)
+
+<div class="highlight">
+**This kind of distinction critical in many applications (e.g. statistical modelling)**
+</div>
+
+- **Factors** are special vectors that represent *categorical* data
+  - Stored as vectors of *labelled integers*
+  - **Cannot be treated as strings/text**
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+
+## Challenge 06 (5min)
+
+Create a new `factor`, defining `control` and `case` experiments, and inspect the result:
+
+```{r}
+f <- factor(c("case", "control", "case", "control", "case"))
+str(f)
+```
+
+<div class="attention">
+**In some statistical analyses in `R` it is important that the `control` level is numbered `1`**
+</div>
+
+<div class="highlight">
+- Using the help available to you in `RStudio`, can you create a factor with the same values, but where the `control` level is numbered `1`?
+</div>
+
+
+## Lists
+
+- `list`s are like *vectors*, but can hold *any combination of datatype*
+  - *elements* in a `list` are denoted by `[[]]` and can be named
+    
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+```{r}
+# create a list
+l <- list(1, 'a', TRUE, matrix(0, nrow = 2, ncol = 2), f)
+l_named <- list(a = "SWC", b = 1:4)
+```
+
+
+## Logical Indexing
+
+- We have used *indexing*, *slicing* and *names* to get data **by 'location'**
+
+```{r, eval=FALSE}
+> animal[c(2,4,6)]
+[1] "o" "k" "y"
+> l_named$b
+[1] 1 2 3 4
+```
+
+- *Logical indexes* select data that meets certain criteria
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+```{r, eval=FALSE}
+x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+mask <- c(TRUE, FALSE, TRUE, FALSE, TRUE)
+x[mask]
+x[x > 7]
+```

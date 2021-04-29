@@ -1003,3 +1003,528 @@ hist(avg_inflammation_day, breaks=seq(5, 8, by=0.2))
 -----
 
 ## 4. Data Types and Structures in `R`
+
+## Learning Objectives**
+
+- This lesson might sound like it's going to be a bit dry: "Why should I care about data types and structures?"
+
+- **IF YOU UNDERSTAND YOUR DATA, AND YOU UNDERSTAND HOW `R` SEES YOUR DATA, YOUR ANALYSIS WILL BE MUCH EASIER AND MORE EFFECTIVE**
+
+- In this section, you'll be learning about the data types in `R`: **WHAT DATA IS**
+- You'll also be learning about the data *structures*: **WHAT DATA IS BUILT INTO - HOW IT IS ARRANGED**
+- And you'll also learn how to find out what type/structure a particular piece of data has
+- Putting it together, you'll see how `R`'s data types and structures relate to the types of data that you work with, yourself.
+
+-----
+
+## Data Types and Structures in `R`
+
+- `R` is **MOSTLY USED FOR DATA ANALYSIS**
+- `R` is set up with key, core data types designed to help you work with your own data
+- A lot of the time, `R` focuses on tabular data (like our cat example)
+- **INTERACTIVE DEMO**
+
+
+- **SWITCH TO THE CONSOLE** (Establish that `cats` is available as a variable)
+- If you type `cats`, you get a nice tabular representation of your data
+
+```R
+> cats
+    coat weight likes_string
+1 calico    2.1            1
+2  black    5.0            0
+3  tabby    3.2            1
+```
+
+- **THINK ABOUT THE DATA TYPES** Are they all the same?
+    - **NO** `coat` is text; `weight` is some real value (in kg or pounds, maybe), and `likes_string` looks like it should be `TRUE`/`FALSE`
+    - **DOES IT MAKE SENSE TO WORK WITH THEM AS IF THEY'RE THE SAME THING?** (No)
+
+- **EXTRACT A COLUMN FROM A TABLE**
+    - Use `$` notation in the console
+    - **NOTE THE AUTOCOMPLETION**
+
+```R
+> cats$weight
+[1] 2.1 5.0 3.2
+```
+
+- **WHAT DID `R` RETURN?**
+    - A *vector* (1D ordered collection) of numbers
+- **WE CAN OPERATE ON THESE *VECTORS***
+    - *Vectors* are an important concept, and `R` is largely built so that operations on vectors are central to data analysis.
+
+```R
+> cats$weight + 2
+[1] 4.1 7.0 5.2
+```
+
+- **WHAT ABOUT OTHER COLUMNS?**
+
+```R
+> cats$coat
+[1] calico black  tabby
+Levels: black calico tabby
+```
+
+- **WHAT DID `R` RETURN?**
+    - A *vector* of *levels*
+    - We'll talk about these in more detail shortly, but the key point is that `R` **DOESN'T THINK THEY'RE ONLY WORDS** - it **THINKS THEY'RE NAMED CATEGORIES OF OBJECT**. `R` is always assuming that you mean to import *data* not *words*
+    - We can operate on this vector, too (**EXPLAIN `paste()`**)
+
+```R
+> paste("My cat is", cats$coat)
+[1] "My cat is calico" "My cat is black"  "My cat is tabby"
+```
+
+- **WHAT HAPPENS NEXT?**
+
+```R
+> cats$weight + cats$coat
+[1] NA NA NA
+Warning message:
+In Ops.factor(cats$weight, cats$coat) : ‘+’ not meaningful for factors
+```
+
+- You probably already realised that wasn't going to work, because adding "calico" to "2.1" is nonsense.
+- **THESE DATA TYPES ARE NOT COMPATIBLE** for addition
+- `R`'s data types reflect the ways in which data is expected to interact
+
+- **UNDERSTANDING HOW YOUR DATA MAP TO `R`'s DATA TYPES IS KEY**
+    - It's very important to understand how `R` sees your data (**you want `R` to see your data the same way you do**)
+    - Many problems in `R` come down to incompatibilities between data and data types.
+
+-----
+
+## What Data Types Do You Expect?
+
+- **ASK THE STUDENTS**
+    - What data types would you expect to see?
+    - What data types do you think you would **WANT OR NEED**, from your own experience?
+- **SPEND A COUPLE OF MINUTES ON THIS**
+    - The difference between a *data type* and a *data structure*
+
+-----
+
+## Data Types in `R`
+
+- `R`'s data *types* are *atomic*: they are **FUNDAMENTAL AND EVERYTHING ELSE IS BUILT UP FROM THEM**, the same way matter is built up from atoms
+  - In particular, all the data *structures* are built up from data *types*
+- There are only **FIVE DATA TYPES** in `R` (though one is split into two…)
+  - **logical**: Boolean, True/False (also `1`/`0`)
+  - **numeric**: anything that's a number on the number line; two types of number are supported: `integer` and `double` (real)
+  - **complex**: complex numbers, defined on the 2D plane
+  - **character**: text data - readable symbols
+  - **raw**: binary data (we'll not be dealing with this)
+
+- **LET'S LEARN A BIT MORE ABOUT THEM IN THE DEMO**
+- **ENTER DEFINITIONS INTO THE SCRIPT**
+    - Covering the major data types
+
+```R
+# Some variables of several data types
+truth <- TRUE
+lie <- FALSE
+i <- 3L
+d <- 3.0
+c <- 3 + 0i
+txt <- "TRUE"
+```
+
+- **EXECUTE THE VARIABLE DEFINITIONS**
+    - Select the definition lines
+    - Click on `Run`
+    - **OBSERVE THAT THE LINES ARE RUN IN THE CONSOLE**
+    - **OBSERVE THAT THE VALUES ARE DEFINED IN THE ENVIRONMENT**
+    - Note the difference between `Data` and `Values` in the environment
+
+- **USE `typeof()` TO FIND THE TYPE OF A VARIABLE**
+
+```R
+> typeof(i)
+[1] "integer"
+> typeof(c)
+[1] "complex"
+> typeof(d)
+[1] "double"
+```
+
+- **TO TEST IF A DATA ITEM HAS A TYPE, USE `is.<type>()`**
+
+```R
+> is.numeric(3)
+[1] TRUE
+> is.numeric(d)
+[1] TRUE
+> is.double(i)
+[1] FALSE
+> is.integer(d)
+[1] FALSE
+> is.numeric(txt)
+[1] FALSE
+> is.character(txt)
+[1] TRUE
+> is.character(truth)
+[1] FALSE
+> is.logical(truth)
+[1] TRUE
+```
+
+- **THE INTEGER, COMPLEX, AND DOUBLE ARE EQUAL** even if they're not the same data type
+    - numbers are comparable, regardless of data type
+
+```R
+> i == c
+[1] TRUE
+> i == d
+[1] TRUE
+> d == c
+[1] TRUE
+```
+
+- **INTEGER, COMPLEX AND DOUBLE ARE NOT ALL `numeric`** though
+
+```R
+> is.numeric(i)
+[1] TRUE
+> is.numeric(c)
+[1] FALSE
+```
+
+## Challenge 04 (2min)
+
+- Let the students work for a couple of minutes, then demonstrate.
+
+-*SOLUTION**
+
+```R
+> answer = TRUE
+> height = 183
+> dog_name = "Spot"
+> is.logical(answer)
+[1] TRUE
+> is.numeric(height)
+[1] TRUE
+> is.character(dog_name)
+[1] TRUE
+```
+
+![images/red_green_sticky.png](images/red_green_sticky.png)
+
+-----
+
+## FOUR COMMON `R` DATA STRUCTURES**
+
+- These are perhaps the four data structures you'll come across most often in `R`
+- We'll deal with them through examples
+- **INTERACTIVE DEMO IN SCRIPT**
+
+- **VECTORS**
+    - These are the **MOST COMMON DATA STRUCTURE**
+    - Vectors can contain **ONLY A SINGLE DATA TYPE** (*atomic vectors*)
+    - **ADD CODE TO SCRIPT** then use `Run` to run in console
+    - To create a vector **USE THE `c()` FUNCTION** (`c()` is `combine`; use `?c`)
+    - First we define an **ATOMIC VECTOR OF NUMBERS** - each element is an integer
+
+```R
+# Define an integer vector
+x <- c(10, 12, 45, 33)
+```
+
+- We can use some `R` functions to find out more about this variable
+    - **RUN CODE IN CONSOLE**
+
+```R
+> length(x)
+[1] 4
+> typeof(x)
+[1] "double"
+> str(x)
+ num [1:4] 10 12 45 33
+```
+
+- The `str()` function **REPORTS THE STRUCTURE OF A VARIABLE**
+    - Here, `num` means 'numeric'; `[1:4]` means there are four elements; the elements are listed
+    - **NOTE THAT THIS INFORMATION IS IN THE ENVIRONMENT TAB**
+
+- **DEFINE A SECOND VECTOR IN THE SCRIPT**
+
+```R
+# Define a vector
+xx <- c(1, 2, 'a')
+```
+
+- In the Environment tab, you can see **THIS IS A CHARACTER VECTOR**
+
+```R
+> length(xx)
+[1] 3
+> typeof(xx)
+[1] "character"
+> str(xx)
+ chr [1:3] "1" "2" "a"
+```
+
+- **IS THE TYPE OF THE VECTOR WHAT YOU EXPECTED?**
+    - This is one of the things that trips people up with `R` - they think their data is of one type, but `R` thinks it makes more sense to have it as another type
+
+-----
+
+## Challenge 05 (5min)
+
+- Let the students work for a couple of minutes, then demonstrate.
+
+-*SOLUTION**
+
+```R
+> xx <- c(1.7, "a")
+> typeof(xx)
+[1] "character"
+> yy <- c(TRUE, 2)
+> typeof(yy)
+[1] "double"
+> zz <- c("a", TRUE)
+> typeof(zz)
+[1] "character"
+```
+
+![images/red_green_sticky.png](images/red_green_sticky.png)
+
+-----
+
+## Coercion
+
+- *Coercion* is what happens when you **COVERT ONE DATA TYPE INTO ANOTHER**
+- If `R` thinks it needs to, it will **COERCE DATA IMPLICITLY** without telling you
+- There is a set order for coercion
+  - `logical` can be coerced to `integer`, but `integer` cannot be coerced to `logical`
+  - That's because `integer` can describe all `logical` values, but not *vice versa*
+  - Everything can be represented as a `character`, so that's the fallback position for `R`
+- **IF THERE'S A FORMATTING PROBLEM IN YOUR DATA, `R` MIGHT CONVERT THE TYPE TO COPE**
+  - `R` will choose the simplest data type that can represent all items in the vector
+
+- **INTERACTIVE DEMO IN CONSOLE** More useful things to do with vectors
+- You can (usually) **COERCE VECTORS MANUALLY** with `as.<type>()`
+
+```R
+> as.character(x)
+[1] "10" "12" "45" "33"
+> as.complex(x)
+[1] 10+0i 12+0i 45+0i 33+0i
+> as.logical(x)
+[1] TRUE TRUE TRUE TRUE
+> xx
+[1] "1" "2" "a"
+> as.numeric(xx)
+[1]  1  2 NA
+Warning message:
+NAs introduced by coercion
+> as.logical(xx)
+[1] NA NA NA
+```
+
+-----
+
+## Factors
+
+- In general **DATA COMES AS ONE OF TWO TYPES**
+    - *Quantitative data* represents measurable values. These are usually either **CONTINUOUS** (real values like a height in centimetres) or a **COUNT**  (like number of beans in a tin).
+    - *Categorical* data representing **DISCRETE GROUPS**, which can be **UNORDERED** (like "types of computer"; "educational establishments") or **ORDERED** (like floors of a building, or grades in school)
+
+- **THIS DISTINCTION IS CRITICAL IN MANY STATISTICAL/ANALYTICAL METHODS**
+- `R` **WAS MADE FOR STATISTICS** so has a special way of dealing with the difference
+
+- **FACTORS ARE SPECIAL VECTORS REPRESENTING *CATEGORICAL* DATA**
+    - Factors are stored as **VECTORS OF LABELLED INTEGERS**
+    - Factors **CANNOT BE TREATED AS TEXT**
+
+- **CREATE FACTOR IN SCRIPT**
+    - We create a **FACTOR WITH THREE ELEMENTS**
+    - `Run` the line
+
+```R
+# Create a factor with three elements
+> f <- factor(c("no", "yes", "no"))
+```
+
+- **INSPECT THE FACTOR IN THE CONSOLE**
+    - When we look at the *structure* of the vector, it reports **TWO LEVELS**: `"yes"` and `"no"`
+    - It also reports a list of values: `1 2 1`
+    - There is a mapping `"no" -> 1` and `"yes" -> 2`
+    - The **VECTOR STORES INTEGERS `1` and `2`, BUT THESE ARE LABELLED `"no"` and `"yes"`**
+
+```R
+> length(f)
+[1] 3
+> str(f)
+ Factor w/ 2 levels "no","yes": 1 2 1
+> levels(f)
+[1] "no"  "yes"
+> f
+[1] no  yes no
+Levels: no yes
+```
+
+- **IN OUR `cats` DATA THE COAT WAS STORED AS A FACTOR**
+- **DEMO IN CONSOLE**
+    - The `class()` function **IDENTIFIES DATA STRUCTURES**
+    - **NOTE THAT BY DEFAULT FACTORS ARE NUMBERED IN ALPHABETICAL ORDER OF LABEL**
+
+```R
+> cats$coat
+[1] calico black  tabby
+Levels: black calico tabby
+> class(cats$coat)
+[1] "factor"
+> str(cats$coat)
+ Factor w/ 3 levels "black","calico",..: 2 1 3
+```
+
+-----
+## Challenge 06 (5min)
+
+```R
+> f <- factor(c("case", "control", "case", "control", "case"))
+> str(f)
+ Factor w/ 2 levels "case","control": 1 2 1 2 1
+> f <- factor(c("case", "control", "case", "control", "case"), levels=c("control", "case"))
+> str(f)
+ Factor w/ 2 levels "control","case": 2 1 2 1 2
+```
+
+![images/red_green_sticky.png](images/red_green_sticky.png)
+
+
+-----
+
+## Lists
+
+- `list`s are like *vectors*, **EXCEPT THEY CAN HOLD ANY DATA TYPE**
+
+- **CREATE NEW LIST IN SCRIPT**
+    - `Run` from script
+
+```R
+# Create a list
+l <- list(1, 'a', TRUE, seq(2, 5), f)
+
+# Create a named list
+l_named <- list(a = "SWC", b = 1:4)
+```
+
+- **INSPECT THE LISTS IN THE CONSOLE**
+    - The elements are identified with **DOUBLE SQUARE BRACKETS** `[[n]]`
+    - We use this **LIKE ANY OTHER INDEX**
+
+```R
+> class(l)
+[1] "list"
+> class(l_named)
+[1] "list"
+> str(l)
+List of 5
+ $ : num 1
+ $ : chr "a"
+ $ : logi TRUE
+ $ : int [1:4] 2 3 4 5
+ $ : Factor w/ 2 levels "no","yes": 1 2 1
+> str(l_named)
+List of 2
+ $ a: chr "SWC"
+ $ b: int [1:4] 1 2 3 4
+> l
+[[1]]
+[1] 1
+
+[[2]]
+[1] "a"
+
+[[3]]
+[1] TRUE
+
+[[4]]
+[1] 2 3 4 5
+
+[[5]]
+[1] no  yes no 
+Levels: no yes
+> l[[4]][1]
+[1] 2
+```
+
+- **THE NAMED LIST IS SLIGHTLY DIFFERENT**
+    - **CAN STILL INDEX**
+    - But can also **NOW USE NAMES** with `$`
+    - **INDICES CAN CHANGE IF DATA IS MODIFIED - NAMES ARE MORE ROBUST**
+    - **NAMES CAN ALSO BE MORE DESCRIPTIVE (HELPS UNDERSTANDING/READABILITY)**
+
+```R
+> l_named
+$a
+[1] "SWC"
+
+$b
+[1] 1 2 3 4
+> l_named[[1]]
+[1] "SWC"
+> l_named[[2]]
+[1] 1 2 3 4
+> l_named$a
+[1] "SWC"
+> l_named$b
+[1] 1 2 3 4
+> names(l_named)
+[1] "a" "b"
+```
+
+-----
+
+## Logical Indexing
+
+- We've seen **INDEXING** and **NAMES** as ways to get elements from variables **SO LONG AS WE KNOW WHICH ELEMENTS WE WANT**
+- **LOGICAL INDEXING** allows us to **SPECIFY CONDITIONS FOR THE DATA WE WANT TO RECOVER**
+  - For instance, we might want **ALL VALUES OVER A THRESHOLD** or **ALL NAMES STARTING WITH 'S'**
+
+- **DEMO IN SCRIPT** (`data_structures.R`)
+  - We create a vector of values as an example
+  - We make a **MASK OF TRUE/FALSE (i.e. logical)** values
+  - `Run` the lines
+
+```R
+# Create a vector for logical indexing
+v <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+mask <- c(TRUE, FALSE, TRUE, FALSE, TRUE)
+```
+
+- **DEMO IN CONSOLE**
+- Now, when we **USE THE MASK AS AN INDEX** we only get **THE ELEMENTS WHERE THE MASK IS TRUE**
+
+```R
+> v
+[1] 5.4 6.2 7.1 4.8 7.5
+> v[mask]
+[1] 5.4 7.1 7.5
+```
+
+- **COMPARATORS IN `R` RETURN VECTORS OF TRUE/FALSE VALUES**
+  - These can be **USED AS LOGICAL MASKS fOR DATA**
+  - Comparators **CAN BE COMBINED**
+
+```R
+> v
+[1] 5.4 6.2 7.1 4.8 7.5
+> v < 7
+[1]  TRUE  TRUE FALSE  TRUE FALSE
+> v[v < 7]
+[1] 5.4 6.2 4.8
+> v < 7
+[1]  TRUE  TRUE FALSE  TRUE FALSE
+> v > 5 & v < 7
+[1]  TRUE  TRUE FALSE FALSE FALSE
+> v[v > 5 & v < 7]
+[1] 5.4 6.2
+> v > 5 | v < 7
+[1] TRUE TRUE TRUE TRUE TRUE
+> v[v > 5 | v < 7]
+[1] 5.4 6.2 7.1 4.8 7.5
+```
