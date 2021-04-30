@@ -2079,3 +2079,346 @@ p + geom_density_2d(alpha=0.5) + facet_wrap(~year)
 ```
 
 ![images/red_green_sticky.png](images/red_green_sticky.png)
+
+-----
+
+## 9. Data Cleaning/Tidy Data
+
+
+-----
+
+## Why Tidy Data?
+
+- It is **not just a first step** - it must be repeated many time over the course of an analysis
+  - new data, new ideas, etc. turn up as you're working
+- About **80% of the effort of data analysis** is cleaning and preparing data for analysis
+
+- The principles of **tidy data** provide a standard way to organise data values within a dataset
+  - "Tidy datasets are all alike, but every messy dataset is messy in its own way"
+
+-----
+
+## A Messy Dataset (1)
+
+- Here's a dataset like you might receive it from a colleague
+
+- It's a **RECTANGULAR TABLE**
+  - Made up of **ROWS** and **COLUMNS**, just like the data you've been working with
+
+- Each row describes a treatment
+- Each column gives the results for a different individual, for each treatment
+
+- But the data doesn't have to be structured this way.
+
+-----
+
+## A Messy Dataset (2)
+
+- Here we've transposed the rows and columns of the table
+- The **data is the same**
+- The **layout is different**
+
+- To understand what this means, **AND WHY IT IS MESSY**, we need to consider some data semantics.
+
+-----
+
+## Data Semantics
+
+- We need to define three terms
+
+- A dataset, like the one shown, is a collection of **VALUES**
+
+- Each value belongs to a variable, and to an observation
+- A **VARIABLE** is something that *can change or vary*
+  - They may be values that measure the same underlying attribute, such as height, temperature, or some kind of output result
+  - They may be experimental conditions under a researcher's control, such as a treatment, how long that treatment is applied, or other experimental settings
+- An **OBSERVATION** is a collection of **values** measured across all **variables** for the same individual or unit
+  - The unit is often a person, a collective group like a religion or company, or a physical item like a reactor vessel
+ 
+ -----
+
+ ## Challenge 11 (2min)
+
+ - So for our first messy dataset, how would you describe the rows and columns of the table?
+   - Are they observations, or variables, or neither?
+
+- **THE ROWS AND COLUMNS IN THE MESSY DATA ARE NEITHER OBSERVATIONS NOR VARIABLES**
+
+-----
+
+## A Tidy Dataset (1)
+
+- The dataset contains 18 values:
+  - six observations of three variables
+
+- The variables are:
+  - **PERSON**: John, Mary and Jane
+  - **TREATMENT**: A or B
+  - **RESULT**: `NA`, 16, 3, 2, 11, 1
+
+- Each **OBSERVATION** includes values for all three variables
+
+-----
+
+## A Tidy Dataset (2)
+
+- Here is the dataset represented in tidy form
+
+- You can see each variable has its own column
+- Each observation has one value per column
+  - **Note: Missing data counts as a value**
+
+-----
+
+## Tidy Data
+
+- Tidy data is a **STANDARD** way of structuring a dataset, but it is not the only way
+  - It does make it easy to extract the variables you need
+  - It is also very well suited to `R` because it supports vectorisation (which you saw earlier)
+
+- In Tidy Data:
+  - Each variable forms a column
+  - Each observation forms a row
+
+- Most of the data you receive is unlikely to be Tidy, so you'll probably need to clean it
+- And **MESSY DATA CAN BE USEFUL**
+  - If your design is completely crossed: e.g. every individual tries every medicine
+    - Messy Data (rows=patients, columns=medicines) is compact
+      - Also useful if matrix operations are appropriate
+
+
+- **INTERACTIVE DEMO**
+  - Show that the `gapminder` data is Tidy
+  - **IN THE CONSOLE**
+    - Each column in the `gapminder` dataset is a variable
+    - Each row is a set of values: one per variable, comprising a single observation fo a combination of country and year
+- **WE CAN USE TIDY DATA METHODS ON THIS DATASET**
+
+```r
+> head(gapminder)
+      country year      pop continent lifeExp gdpPercap
+1 Afghanistan 1952  8425333      Asia  28.801  779.4453
+2 Afghanistan 1957  9240934      Asia  30.332  820.8530
+3 Afghanistan 1962 10267083      Asia  31.997  853.1007
+4 Afghanistan 1967 11537966      Asia  34.020  836.1971
+5 Afghanistan 1972 13079460      Asia  36.088  739.9811
+6 Afghanistan 1977 14880372      Asia  38.438  786.1134
+```
+
+-----
+
+# 10. WORKING WITH TIDY DATA
+
+-----
+
+## Learning Objectives
+
+- You're going to **learn to manipulate `data.frame`s with the six *verbs* of `dplyr`**
+
+- `select()`
+- `filter()`
+- `group_by()`
+- `summarize()`
+- `mutate()`
+- `%>%` (pipe)
+
+-----
+
+## What and Why is `dplyr`?
+
+- `dplyr` is a package in the **TIDYVERSE**; it exists to enable **rapid analysis of data by groups**
+  - For example, if we wanted numerical (rather than graphical) analysis of the `gapminder` data by continent, we'd use `dplyr`
+  - It enables group-level analyses without using repetitive code
+
+- **AVOIDING REPETITION IMPROVES YOUR CODE**
+  - More **robust**
+  - More **readable**
+  - More **reproducible**
+
+
+-----
+
+## Split-Apply-Combine
+
+- The **general principle** `dplyr` supports is **SPLIT-APPLY-COMBINE**
+
+- We have a **dataset with several groups in a variable** (column `x`)
+  - For example, each patient in our messy data might be a "group"
+- We **want to perform the same operation on each group, independently** - take a mean of `y` for each group, for example
+    - So we **SPLIT** the data into groups, on `x`
+    - Then we **APPLY** the operation (take the mean for each group)
+    - Then we **COMBINE** the results into a new table
+
+-----
+
+`select()` - Interactive Demo**
+
+- **DEMO IN CONSOLE**
+    - Import `dplyr`
+
+```R
+> library(dplyr)
+```
+
+- The `select()` *verb* **SELECTS COLUMNS**
+    - **DEMO IN CONSOLE**
+    - If we wanted to select only year, country and GDP data from `gapminder`
+    - Specify: **data, then columns**
+
+```R
+> head(select(gapminder, year, country, gdpPercap))
+  year     country gdpPercap
+1 1952 Afghanistan  779.4453
+2 1957 Afghanistan  820.8530
+3 1962 Afghanistan  853.1007
+4 1967 Afghanistan  836.1971
+5 1972 Afghanistan  739.9811
+6 1977 Afghanistan  786.1134
+```
+
+- Here, we **applied a function**, but we can also **'PIPE' DATA FROM ONE VERB TO ANOTHER**
+    - These work **like pipes in the shell**
+    - **SPECIAL PIPE SYMBOL: `%>%`**
+    - Specify **only columns**
+
+```R
+> head(gapminder %>% select(year, country, gdpPercap))
+  year     country gdpPercap
+1 1952 Afghanistan  779.4453
+2 1957 Afghanistan  820.8530
+3 1962 Afghanistan  853.1007
+4 1967 Afghanistan  836.1971
+5 1972 Afghanistan  739.9811
+6 1977 Afghanistan  786.1134
+```
+
+-----
+
+## `filter()`
+
+- `filter()` selects rows on the basis of some condition, or combination of conditions
+    - We can **use it as a function, with *pipes***
+
+- **DEMO IN CONSOLE**
+
+```R
+> head(filter(gapminder, continent=="Europe"))
+  country year     pop continent lifeExp gdpPercap
+1 Albania 1952 1282697    Europe   55.23  1601.056
+2 Albania 1957 1476505    Europe   59.28  1942.284
+3 Albania 1962 1728137    Europe   64.82  2312.889
+4 Albania 1967 1984060    Europe   66.22  2760.197
+5 Albania 1972 2263554    Europe   67.69  3313.422
+6 Albania 1977 2509048    Europe   68.93  3533.004
+```
+
+- **DEMO IN SCRIPT** (`gapminder.R`)
+    - One **advantage of pipes** is that they make chaining *verbs* together **MORE READABLE**
+    - **END THE LINES WITH THE PIPE SYMBOL** so `R` knows that there's a continuation
+    - `Run` the lines and **check the output** in `Environment`
+
+```R
+# Select gdpPercap by country and year, only for Europe
+eurodata <- gapminder %>%
+              filter(continent == "Europe") %>%
+              select(year, country, gdpPercap)
+```
+
+-----
+
+## Challenge 12
+
+```R
+# Select life expectancy by country and year, only for Africa
+afrodata <- gapminder %>%
+  filter(continent == "Africa") %>%
+  select(year, country, lifeExp)
+```
+
+- 624 observations
+
+![images/red_green_sticky.png](images/red_green_sticky.png)
+
+
+-----
+
+## `group_by()`
+
+- The `group_by()` *verb* **SPLITS `data.frame`s INTO GROUPS ON A VARIABLE/COLUMN PROPERTY**
+- **DEMO IN CONSOLE**
+  - It returns a **`tibble`** - a table with extra metadata describing the groups in the table
+
+```R
+> group_by(gapminder, continent)
+# A tibble: 1,704 x 6
+# Groups:   continent [5]
+       country  year      pop continent lifeExp gdpPercap
+        <fctr> <int>    <dbl>    <fctr>   <dbl>     <dbl>
+ 1 Afghanistan  1952  8425333      Asia  28.801  779.4453
+ 2 Afghanistan  1957  9240934      Asia  30.332  820.8530
+ 3 Afghanistan  1962 10267083      Asia  31.997  853.1007
+ 4 Afghanistan  1967 11537966      Asia  34.020  836.1971
+ 5 Afghanistan  1972 13079460      Asia  36.088  739.9811
+ 6 Afghanistan  1977 14880372      Asia  38.438  786.1134
+ 7 Afghanistan  1982 12881816      Asia  39.854  978.0114
+ 8 Afghanistan  1987 13867957      Asia  40.822  852.3959
+ 9 Afghanistan  1992 16317921      Asia  41.674  649.3414
+10 Afghanistan  1997 22227415      Asia  41.763  635.3414
+# ... with 1,694 more rows
+```
+
+----
+
+## `summarize()`
+
+- The **combination of `group_by()` and `summarize()` is very powerful**
+  - We can **CREATE NEW VARIABLES** using functions that repeat for each group
+- Here, we've split the original table into three groups, and now **CREATE A NEW VARIABLE `mean_b` THAT IS FILLED BY CALCULATING THE MEAN OF `b`**
+
+- **DEMO IN SCRIPT**
+    - We use the same principle to **calculate mean GDP per continent**
+
+```R
+> # Produce table of mean GDP by continent
+> gapminder %>%
++     group_by(continent) %>%
++     summarize(meangdpPercap=mean(gdpPercap))
+# A tibble: 5 x 2
+  continent meangdpPercap
+     <fctr>         <dbl>
+1    Africa      2193.755
+2  Americas      7136.110
+3      Asia      7902.150
+4    Europe     14469.476
+5   Oceania     18621.609
+```
+
+----
+
+## Challenge 13
+
+- **IN THE SCRIPT**
+
+```R
+# Find average life expectancy by nation
+avg_lifexp_country <- gapminder %>%
+  group_by(country) %>%
+  summarize(meanlifeExp=mean(lifeExp))
+```
+
+- **IN THE CONSOLE**
+
+```R
+> avg_lifexp_country[avg_lifexp_country$meanlifeExp == max(avg_lifexp_country$meanlifeExp),]
+# A tibble: 1 x 2
+  country meanlifeExp
+   <fctr>       <dbl>
+1 Iceland    76.51142
+> avg_lifexp_country[avg_lifexp_country$meanlifeExp == min(avg_lifexp_country$meanlifeExp),]
+# A tibble: 1 x 2
+       country meanlifeExp
+        <fctr>       <dbl>
+1 Sierra Leone    36.76917
+```
+
+![images/red_green_sticky.png](images/red_green_sticky.png)

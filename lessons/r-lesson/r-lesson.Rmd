@@ -13,6 +13,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+library(knitr)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -1204,4 +1205,303 @@ Can you create a scatterplot and contour densities of GDP per capita against pop
 
 <div class="highlight">
 **ADVANCED:** Transform the *x* axis to better visualise data spread, and use facets to panel density plots by year.
+</div>
+
+
+# 9. Data Cleaning/Tidy Data
+
+
+## Why Tidy Data?
+
+> "Tidy datasets are all alike, but every messy dataset is messy in its own way"
+
+- Data Cleaning is not just a first step
+  - repeated when new data turns up, new ideas arrive, etc.
+- About 80% of the effort of data analysis is cleaning and preparing data
+
+<div class="highlight">
+Principles of **Tidy Data** provide a standard way to organise data values within a dataset
+</div>
+
+<div class="references">
+- `R` for Data Science: <http://r4ds.had.co.nz/>
+- Data Wrangling cheat sheet: <https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf>
+- Introduction to `dplyr`: <https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html>
+- Data Wrangling with `R` and `RStudio`: <https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/>
+</div>
+
+
+## A Messy Dataset (1)
+
+```{r}
+df1 <- data.frame(treatment=c("treatmenta", "treatmentb"),
+                  John.Smith=c(NA, 2),
+                  Jane.Doe=c(16, 11),
+                  Mary.Johnson=c(3, 1))
+colnames(df1) = c("", "John Smith", "Jane Doe", "Mary Johnson")
+```
+
+```{r, echo=FALSE}
+kable(df1)
+```
+
+
+## A Messy Dataset (2)
+
+```{r}
+df2 <- data.frame(name=c("John Smith", "Jane Doe", "Mary Johnson"),
+                 treatmenta=c(NA, 16, 3),
+                 treatmentb=c(2, 11, 1))
+colnames(df2) = c("", "treatmenta", "treatmentb")
+```
+
+```{r, echo=FALSE}
+kable(df2)
+```
+
+
+## Data Semantics
+
+- A dataset is a collection of **VALUES**
+
+```{r, echo=FALSE}
+kable(df1)
+```
+
+<div class="highlight">
+- Each **value** belongs to a **variable** and an **observation**
+</div>
+
+- **VARIABLES**: can *change* or *vary*
+  - values that are *measured** or *decided* by a researcher: height, temperature, duration, treatment, etc.
+- **OBSERVATIONS**: values measured across all variables for the same individual/unit/group: person, reactor, religion, company, etc.
+
+
+## Challenge 11 (2min)
+
+<div class="highlight">
+In the table below, what is the correct assignment for rows and columns?
+</div>
+
+```{r, echo=FALSE}
+kable(df1)
+```
+
+<p />
+- Rows=OBERVATIONS, Columns=OBSERVATIONS
+- Rows=OBERVATIONS, Columns=NEITHER
+- Rows=NEITHER, Columns=OBSERVATIONS
+- Rows=NEITHER, Columns=NEITHER
+
+<center>
+<div class="attention">
+**USE CHALLENGE LINK ON ETHERPAD**
+</div>
+</center>
+
+
+## A Tidy Dataset (1)
+
+<div class="highlight">
+- The dataset contains 18 values:
+  - three variables
+  - six observations
+</div>
+
+- **VARIABLES**
+  - person (John, Mary, Jane)
+  - treatment (a and b)
+  - result (`NA`, 16, 3, 2, 11, 1)
+
+```{r, echo=FALSE}
+df3<- data.frame(name=c("John Smith", "Jane Doe", "Mary Johnson",
+                         "John Smith", "Jane Doe", "Mary Johnson"),
+                  treatment=c("a", "a", "a", "b", "b", "b"),
+                  result=c(NA, 16, 3, 2, 11, 1))
+```
+
+
+<div class="attention">
+Each **OBSERVATION** includes all three variables
+</div>
+
+
+## A Tidy Dataset (2)
+
+```{r, echo=FALSE}
+kable(df3)
+```
+
+
+## Tidy Data
+
+- Tidy data is a standard way of structuring a dataset
+  - not the only way
+  - makes it easy to extract needed varaibles
+  - well suited to `R` (supports vectorisation)
+
+<div class="highlight">
+1. Each **VARIABLE** forms a column
+2. Each **OBSERVATION** forms a row
+</div>
+
+<div class="attention">
+- The *real* data you receive may often need to be cleaned to be in Tidy form
+- Messy forms are sometimes useful
+</div>
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+
+# 10. Working With Tidy Data
+
+
+## Learning Objectives
+
+- How to manipulate `data.frame`s with the six *verbs* of `dplyr`
+  - a 'grammar of data manipulation'
+
+<div class="highlight">
+- `select()`
+- `filter()`
+- `group_by()`
+- `summarize()`
+- `mutate()`
+- `%>%` (pipe)
+</div>
+
+<div class="references">
+- `R` for Data Science: <http://r4ds.had.co.nz/>
+- Data Wrangling cheat sheet: <https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf>
+- Introduction to `dplyr`: <https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html>
+- Data Wrangling with `R` and `RStudio`: <https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/>
+</div>
+
+
+## What and Why is `dplyr`?
+
+- `dplyr` is another package in the *Tidyverse*
+- Facilitates analysis by *groups* in Tidy Data
+  - Helps avoid repetition
+    
+```{r, eval=FALSE}
+> mean(gapminder[gapminder$continent == "Africa", "gdpPercap"])
+[1] 2193.755
+> mean(gapminder[gapminder$continent == "Americas", "gdpPercap"])
+[1] 7136.11
+> mean(gapminder[gapminder$continent == "Asia", "gdpPercap"])
+[1] 7902.15
+```
+
+<div class="highlight">
+Avoiding repetition (though automation) makes code
+
+* **robust**
+* **reproducible**
+</div>
+
+
+## Split-Apply-Combine
+
+<center>
+<img src="images/splitapplycombine.png" width="100%"/>
+</center>
+
+
+## `select()` - Interactive Demo
+
+```{r, eval=FALSE}
+library(dplyr)
+```
+
+<center>
+<img src="images/dplyr_select.png" width="45%"/>
+</center>
+
+```{r, eval=FALSE}
+select(gapminder, year, country, gdpPercap)
+gapminder %>% select(year, country, gdpPercap)
+```
+
+
+## `filter()`
+
+* `filter()` selects rows on the basis of some condition
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+```{r, eval=FALSE}
+filter(gapminder, continent=="Europe")
+
+# Select gdpPercap by country and year, only for Europe
+eurodata <- gapminder %>%
+              filter(continent == "Europe") %>%
+              select(year, country, gdpPercap)
+```
+
+
+## Challenge 12 (5min)
+
+Can you write a single line (which may span multiple lines in your script by including pipes) to produce a dataframe from `gapminder` containing:
+
+<div class="highlight">
+- life expectancy, country, and year data
+- only for African nations
+</div>
+
+How many rows does the dataframe have
+
+
+## `group_by()`
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+<center>
+<img src="images/dplyr_group_by.png" width="45%"/>
+</center>
+
+```{r, eval=FALSE}
+group_by(gapminder, continent)
+gapminder %>% group_by(continent)
+```
+
+
+## `summarize()`
+
+<center>
+<div class="attention">
+**INTERACTIVE DEMO**
+</div>
+</center>
+
+<center>
+<img src="images/dplyr_summarize.png" width="45%"/>
+</center>
+
+```{r, eval=FALSE}
+# Produce table of mean GDP by continent
+gapminder %>%
+    group_by(continent) %>%
+    summarize(meangdpPercap=mean(gdpPercap))
+
+```
+
+
+## Challenge 13 (5min)
+
+<div class="highlight">
+- Can you calculate the average life expectancy per *country* in the `gapminder` data?
+- Which nation has longest life expectancy, and which the shortest?
 </div>
