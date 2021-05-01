@@ -2422,3 +2422,347 @@ avg_lifexp_country <- gapminder %>%
 ```
 
 ![images/red_green_sticky.png](images/red_green_sticky.png)
+
+-----
+
+## `count()` and `n()`
+
+- Two other useful functions are related to `summarize()`
+  - **`count()` reports a new table of counts by group**
+  - **`n()` is used to represent the count of rows, when calculating new values in `summarize()`**
+- **DEMO IN CONSOLE**
+
+- **NOTE:** standard error is (std dev)/sqrt(n)
+
+```R
+> gapminder %>% filter(year == 2002) %>% count(continent, sort = TRUE)
+# A tibble: 5 x 2
+  continent     n
+     <fctr> <int>
+1    Africa    52
+2      Asia    33
+3    Europe    30
+4  Americas    25
+5   Oceania     2
+> gapminder %>% group_by(continent) %>% summarize(se_lifeExp = sd(lifeExp)/sqrt(n()))
+# A tibble: 5 x 2
+  continent se_lifeExp
+     <fctr>      <dbl>
+1    Africa  0.3663016
+2  Americas  0.5395389
+3      Asia  0.5962151
+4    Europe  0.2863536
+5   Oceania  0.7747759
+```
+
+-----
+
+## `mutate()`
+
+- **`mutate()` CALCULATES NEW VARIABLES (COLUMNS) ON THE BASIS OF EXISTING COLUMNS**
+- **DEMO IN SCRIPT**
+  - Say we want to calculate the **total GDP of each nation, each year, in $bn**
+  - We'd multiply the GDP per capita by the total population, and divide by 1bn
+- **INSPECT THE OUTPUT**
+  - We have a new data table, which is the `gapminder` data, plus an extra column
+
+```R
+# Calculate GDP in $billion
+gdp_bill <- gapminder %>%
+  mutate(gdp_billion = gdpPercap * pop / 10^9)
+```
+
+- **WE CAN CHAIN ALL THESE OPERATIONS TOGETHER WITH PIPES**
+- **We can calculate several summaries in a single `summarize()` command**
+- We can use the output of `mutate()` in the `summarize()` command
+- **DEMO IN SCRIPT**
+  - We're going to calculate the **total (and standard deviation) of GDP per continent, per year**
+  - Calculate total GDP first
+  - Group by continent and year
+  - Summarise mean and sd of GDP per capita, and total GDP
+
+- **INSPECT THE OUTPUT**
+
+```R
+# Calculate total/sd of GDP by continent and year
+gdp_bycontinents_byyear <- gapminder %>%
+  mutate(gdp_billion=gdpPercap*pop/10^9) %>%
+  group_by(continent,year) %>%
+  summarize(mean_gdpPercap=mean(gdpPercap),
+            sd_gdpPercap=sd(gdpPercap),
+            mean_gdp_billion=mean(gdp_billion),
+            sd_gdp_billion=sd(gdp_billion))
+```
+
+-----
+
+# 11. PROGRAMMING IN `R`
+
+-----
+
+## Learning Objectives
+
+- What we've covered so far will **get you a long way with your analyses**
+  - As you saw with the Unix Shell, the real power of using computers is putting all the pieces together into larger pieces of code - scripts and programs - that can automate complex tasks in a reusable way
+- To help you with this, we're going to cover some programming in `R`
+
+- In this short section, you'll learn how to **perform actions depending on values of data** in `R`
+- You'll also learn how to **repeat operations, using `for()` loops**
+  - **These are very important general concepts, that recur in many programming languages** - you'll have seen loops in the shell lesson
+  - Much of the time, you can avoid using them in `R` data analyses, because `dplyr` exists, and because `R` is **vectorised**
+  - But there are times when you do need them
+
+- We'll also cover how to write *functions*, which let you package up your code into reusable chunks that you can apply again and again to different datasets.
+
+## `if()` … `else`
+
+- We **often want to run a piece of code, or take an action, dependent on whether some data has a particular value (is true or false, say**
+- When this is the case, we can use the general `if()` … `else` structure, which is common to most programming languages
+
+- **DEMO IN SCRIPT**
+- **CREATE NEW SCRIPT** (`flow_control.R`)
+    - Let's say that we want to print a message if some value is greater than 10
+    - **NOTE AUTOCOMPLETION/BRACKETS ETC.**
+    - **THE CODE TO BE RUN GOES IN CURLY BRACES**
+    - `Source` the file
+    - **NOTHING HAPPENS** (`x > 10` is `FALSE`)
+    - The `if()` block executes **if the value in the parentheses evaluates to `TRUE`**
+
+- **MAKE `x` 11 FIRST TO DEMONSTRATE**
+- **THEN MAKE `x` 8**
+
+```R
+# A data point
+x <- 8
+
+# Example if statement
+if (x > 10) {
+  print("x is greater than 10")
+}
+```
+
+- **MODIFY THE SCRIPT**
+    - Add the `else` block
+    - `Source` the code: **we get a message**
+    - **BUT IS THE MESSAGE TRUE?**
+
+```R
+# Example if statement
+if (x > 10) {
+  print("x is greater than 10")
+} else {
+  print("x is less than 10")
+}
+```
+
+- **SET `x <- 10` AND TRY AGAIN**
+- **MODIFY THE SCRIPT WITH `else if()` STATEMENT**
+    - `Source` the script: **NO OUTPUT**
+
+```R
+# A data point
+x <- 10
+
+# Example if statement
+if (x > 10) {
+  print("x is greater than 10")
+} else if (x < 10) {
+  print("x is less than 10")
+}
+```
+
+- **MODIFY THE SCRIPT WITH A FINAL `else` STATEMENT**
+    - `Source` the script: **EQUALS** output
+
+```R
+# A data point
+x <- 9
+
+# Example if statement
+if (x > 10) {
+  print("x is greater than 10")
+} else if (x < 10) {
+  print("x is less than 10")
+} else {
+  print("x is equal to 10")
+}
+```
+
+----
+
+## Challenge 14 (2min)
+
+```R
+# Are there any records for a year
+year <- 2002
+if(any(gapminder$year == year)){
+   print("Record(s) for this year found.")
+}
+```
+
+![images/red_green_sticky.png](images/red_green_sticky.png)
+
+-----
+
+## `for()` loops
+
+- If you want to iterate over a set of values, then `for()` loops can be used
+- `for()` loops are **a very common programming construct**
+- They express the idea: **FOR EACH ITEM IN A GROUP, DO SOMETHING (WITH THAT ITEM)**
+
+- **DEMO IN SCRIPT** (`flow_control.R`)
+  - Say we have a *vector* `c(1,2,3)`, and we want to print each item
+  - We can **loop over all the items** and print them
+- **The loop structure is**
+  - `for()`, where the argument names a variable (`i`) - the *iterator*, and a set of values: **`for(i in c('a', 'b', 'c'))`**
+  - A **CODE BLOCK** defined by curly braces (**note automated completion)
+  - The **contents of the code block are executed for each value of the iterator**
+
+```R
+# Basic for loop
+for(i in c('a', 'b', 'c')){
+  print(i)
+}
+```
+
+- **Loops can (but shouldn't always) be nested**
+- **DEMO IN SCRIPT**
+  - The outer loop is executed and, **for each value in the outer loop, the inner loop is executed to completion**
+
+```R
+# Nested loop example
+for (i in 1:5) {
+  for (j in c('a', 'b', 'c')) {
+    print(paste(i, j))
+  }
+}
+```
+
+- The simplest way to capture output is to add a new item to a vector each iteration of the loop
+- **DEMO IN SCRIPT**
+  - **REMIND:** using `c()` to append to a vector
+
+```R
+# Capture loop output
+output <- c()
+for (i in 1:5) {
+  for (j in c('a', 'b', 'c', 'd', 'e')) {
+    output <- c(output, paste(i, j))
+  }
+}
+(output)
+```
+
+- **GROWING OUTPUT FROM LOOPS IS COMPUTATIONALLY VERY EXPENSIVE**
+  - Better to define the empty output container first (**if you know the dimensions**)
+  - **OR USE VECTORISATION (COMING UP)**
+
+-----
+
+## `while()` loops
+
+- Sometimes you need to perform some action **WHILE A CONDITION IS TRUE**
+  - This isn't as common as a `for()` loop
+  - It's a **general programming construct**
+
+- **DEMO IN SCRIPT**
+  - We'll **generate random numbers until one falls below a threshold**
+  - `runif()` generates random numbers from a uniform distribution
+  - We print random numbers until one is less than 0.1
+- **run a couple of times to show the output is random**
+
+```R
+# Example while loop
+z <- 1
+while(z > 0.1){
+  z <- runif(1)
+  print(z)
+}
+```
+
+-----
+
+## Challenge 15 (2min)
+
+```R
+# Challenge solution
+vowels <- c('a', 'e', 'i', 'o', 'u')
+for (l in letters) {
+  if (l %in% vowels) {
+    print(paste(l, "is a vowel"))
+  } else {
+    print(paste(l, "is not a vowel"))
+  }
+}
+```
+
+![images/red_green_sticky.png](images/red_green_sticky.png)
+
+-----
+
+## Vectorisation
+
+- Although `for()` and `while()` loops can be useful, they are **rarely the most efficient way to work in `R`**
+- **MOST FUNCTIONS IN `R` ARE VECTORISED**
+  - **When applied to a vector, they work on all elements in the vector**
+  - So no need to use a loop.
+
+- **DEMO IN CONSOLE**
+  - **Operators** are vectorised
+
+```R
+> x <- 1:4
+> x
+[1] 1 2 3 4
+> x * 2
+[1] 2 4 6 8
+```
+
+- **You can operate on vectors together**
+
+```R
+> y <- 6:9
+> y
+[1] 6 7 8 9
+> x + y
+[1]  7  9 11 13
+> x * y
+[1]  6 14 24 36
+```
+
+- **Comparison operators are vectorised**
+
+```R
+> x > 2
+[1] FALSE FALSE  TRUE  TRUE
+> y < 7
+[1]  TRUE FALSE FALSE FALSE
+> any(y < 7)
+[1] TRUE
+> all(y < 7)
+[1] FALSE
+```
+
+- **Functions working on vectors**
+
+```R
+> log(x)
+[1] 0.0000000 0.6931472 1.0986123 1.3862944
+> x^2
+[1]  1  4  9 16
+> sin(x)
+[1]  0.8414710  0.9092974  0.1411200 -0.7568025
+```
+
+----
+
+## Challenge 16 (2min)
+
+```R
+> v <- 1:10000
+> v <- 1/(v^2)
+> sum(v)
+[1] 1.644834
+```
+
+![images/red_green_sticky.png](images/red_green_sticky.png)
