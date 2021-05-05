@@ -1,0 +1,94 @@
+09:32:32 From  Leighton (instructor/host)  to  Everyone : https://strathsci.qualtrics.com/jfe/form/SV_etEf3hhW8zAHb5s
+09:34:52 From  Angelika (helper)  to  Everyone : Here is the link to Ether pad:
+09:34:54 From  Angelika (helper)  to  Everyone : https://pad.carpentries.org/2021-05-04-strathclyde-online
+09:38:21 From  Angelika (helper)  to  Everyone : You can download the dataset for this session here:
+09:38:22 From  Angelika (helper)  to  Everyone : https://ndownloader.figshare.com/files/7823341
+09:39:16 From  Steven Ford (instructor/host)  to  Everyone : https://datacarpentry.org/OpenRefine-ecology-lesson/00-getting-started/index.html
+09:39:42 From  Leighton (instructor/host)  to  Everyone : It’s the same arrangement as yesterday for help: Please use the chat or raise your hand if you’ve any questions or issues, and please do put longer-form questions into the EtherPad.
+09:45:28 From  Darren Scobie (Helper)  to  Everyone : Think we’re good!
+10:05:30 From  Tom Reed  to  Everyone : I only have 2 merges here not 3 is this a problem?
+10:05:41 From  yolanda solans  to  Everyone : I have the same thing!
+10:06:01 From  Charlotte von Koppenfels  to  Everyone : mine didn't find any
+10:06:03 From  Mirren White  to  Everyone : My data doesn't have the 2 with the spaces
+10:06:03 From  Leighton (instructor/host)  to  Everyone : I also have two merges. I think this may be because we are using later versions of OpenRefine
+10:06:15 From  yolanda solans  to  Everyone : Yeah that’s what I thought :)
+10:06:33 From  Leighton (instructor/host)  to  Everyone : I expect the database/algorithm for metaphones (sections of words that sounds similar) was updated between versions.
+10:06:45 From  Darren Scobie (Helper)  to  Everyone : I figured it was just because we’re using slightly different program versions, I don’t think it will affect analysis
+10:08:30 From  Emma Hobbs (Helper)  to  Everyone : It highlights that when you use any software in your work you need to cite the specific version and the name in your work/thesis/papers ;)
+10:09:27 From  Leighton (instructor/host)  to  Everyone : Emma has very good advice, there - the behaviour of software can change quite significantly between versions. When BLAST changed to BLAST+ they didn’t just rewrite everything, they used a completely different algorithm for BLASTN nucleotide alignment/searching.
+10:10:10 From  Mohammed Farouq  to  Everyone : How do you undo?
+10:10:34 From  Mohammed Farouq  to  Everyone : I'm on it, but not sure what to press
+10:10:56 From  Leighton (instructor/host)  to  Everyone : On the left of your window @Mohammed you should see the Undo/Redo links in blue. Does clicking on Undo work?
+10:11:24 From  Mohammed Farouq  to  Everyone : Ah, that worked. Thanks!
+10:11:27 From  Leighton (instructor/host)  to  Everyone : (I think you can select which point in your sequence of operations you can return to)
+10:20:27 From  Steven Ford (instructor/host)  to  Everyone : I think you can return to any step (and go back and forth between the steps to see if you really want to 'undo'. However, one you undo and then alter the data in another way you loose the step)s) you 'un-did'!
+10:38:40 From  David Mark (Helper)  to  Everyone : Do the numbers need transformed?
+10:47:17 From  Mohammed Farouq  to  Everyone : It is negative on mine
+11:03:00 From  Angelika (helper)  to  Everyone : It worked with me when using my keyboard shortcuts
+11:08:01 From  Leighton (instructor/host)  to  Everyone : That’s reproducibility, though! Imagine getting someone to point-and-click on the same cells in Excel to do that!
+11:12:35 From  Charlotte von Koppenfels  to  Everyone : would this data be initially collected in excel or already in something else like the csv format?
+11:13:33 From  Leighton (instructor/host)  to  Everyone : It would probably be collected in tabular form, but the program used isn’t so important (Excel is very common, but Numbers, OpenOffice, and other tools do the same job). The more important thing is file format.
+11:14:02 From  Leighton (instructor/host)  to  Everyone : The default Excel format (.xls or .xlsx) is not easily readable by other tools. It is full of bits of binary code that aren’t read as numbers or text.
+11:14:22 From  Charlotte von Koppenfels  to  Everyone : Ah ok. So does excel export to csv?
+11:14:30 From  Leighton (instructor/host)  to  Everyone : However, Excel (and the other tools) *can* export plain text values that can be read by many other programs, such as .csv, .tab, .txt and so on.
+11:14:47 From  Leighton (instructor/host)  to  Everyone : It is always best to store and share data in one of these plain text formats.
+11:15:36 From  Charlotte von Koppenfels  to  Everyone : thanks!
+11:15:50 From  Leighton (instructor/host)  to  Everyone : (As it happens, R and Python *can* import Excel files, but it’s much better not to need to do this - the Excel format has changed over the years, and old versions may not be readable by new programs; new versions may not be readable by old programs)
+11:16:24 From  Leighton (instructor/host)  to  Everyone : The paper Steve is talking about is “Growth in a Time of Debt” by Reinhart & Rogoff.
+11:16:47 From  Leighton (instructor/host)  to  Everyone : https://en.wikipedia.org/wiki/Growth_in_a_Time_of_Debt
+11:17:05 From  Leighton (instructor/host)  to  Everyone : It gets mentioned in this excellent presentation: https://mikecroucher.github.io/MLPM_talk/
+11:18:33 From  Leighton (instructor/host)  to  Everyone : https://www.theregister.com/2020/08/06/excel_gene_names/
+11:19:14 From  Alemao Carpinteyro (Helper)  to  Everyone : https://scholar.harvard.edu/files/rogoff/files/growth_in_time_debt_aer.pdf
+11:19:45 From  Leighton (instructor/host)  to  Everyone : Gene names have been changed because Excel silently mangles data…
+11:19:55 From  Leighton (instructor/host)  to  Everyone : (The Register link above)
+11:23:40 From  Leighton (instructor/host)  to  Everyone : After yesterday’s feedback, I’ll be sharing my RStudio screen only. I will have the slides behind me in my camera window, but you can follow along if that’s too small via this link:
+11:23:41 From  Leighton (instructor/host)  to  Everyone : https://sipbs-compbiol.github.io/2021-05-04-strathclyde-online/lessons/r-lesson/r-lesson.html#48
+11:23:56 From  Leighton (instructor/host)  to  Everyone : (it starts on the “Lists” slide)
+11:24:34 From  Leighton (instructor/host)  to  Everyone : You can use arrow keys to navigate.
+11:27:04 From  Leighton (instructor/host)  to  Everyone : It’s also possible to split Zoom between speaker and screen share view, to see both at the same time.
+11:29:59 From  Emma Hobbs (Helper)  to  Everyone : If you wanted to look up more in data accessibility and reproducibility here are a set of principles for 'FAIR' data, which are updated regularly. Many journals refer to these principles when defining the criteria that submitted data must meet for publication: https://www.force11.org/group/fairgroup/fairprinciples
+11:30:04 From  Emma Hobbs (Helper)  to  Everyone : and this is one of the papers that really kicked off the push for greater transparency and reproducibility of computational work (highly recommend giving it a read, and it can be helpful to reference if you need chuck in a paragraph into your work to explain why you spend so long writing scripts and did just click some buttons in excel 😉): https://www.nature.com/articles/sdata201618
+11:31:09 From  Steven Ford (instructor/host)  to  Everyone : Just to say that one of the nice thing I saw in another Data Carpentries workshop was the use of GREL to manipulate the entries in cells. Go to column header arrow>edit cells>transform... A window opens that uses GREL code to change cell entries (basically you write your won transformations). I don't think the official carpentries site has anything about this, but this link has an intro. https://guides.library.illinois.edu/openrefine/grel
+11:32:32 From  Leighton (instructor/host)  to  Everyone : They’re great things to note on the EtherPad, too -
+11:32:56 From  Steven Ford (instructor/host)  to  Everyone : will do
+11:33:30 From  Angelika (helper)  to  Everyone : When I started my journey with computational biology, Leighton suggested to read these papers. I found them really useful and cover many areas. https://github.com/widdowquinn/ten_great_papers
+11:34:53 From  Leighton (instructor/host)  to  Everyone : Feedback link for OpenRefine session: https://strathsci.qualtrics.com/jfe/form/SV_0V8p0JfeichPeOW
+11:55:16 From  Tom Reed  to  Everyone : why would you use write.table rather than write.csv?
+11:57:03 From  Leighton (instructor/host)  to  Everyone : https://raw.githubusercontent.com/resbaz/r-novice-gapminder-files/master/data/gapminder-FiveYearData.csv
+11:57:32 From  Emma Hobbs (Helper)  to  Everyone : write.csv creates a .csv file which separates the data with commas, write.table creates a file where the data is separated with tabs (represented in code by a \t)
+11:58:17 From  Tom Reed  to  Everyone : thank you
+11:59:37 From  Steven Ford (instructor/host)  to  Everyone : if the link opens in your browser, right click and 'save as' to the data folder
+12:00:15 From  Steven Ford (instructor/host)  to  Everyone : The data file is in the chat too....
+12:04:03 From  John Munnoch (Helper)  to  Everyone : download that and stick it in your data folder
+12:04:35 From  John Munnoch (Helper)  to  Everyone : gapminder <- read.table("data/gapminder-FiveYearData.csv", sep=",", header=TRUE)
+12:10:15 From  Steven Ford (instructor/host)  to  Leighton (instructor/host)(Direct Message) : I wonder if you could go through a academic value of uploading to CRAN (if there is some?)
+12:10:44 From  Leighton (instructor/host)  to  Everyone : dplyr, ggplot2, knitr
+12:13:43 From  Emma Hobbs (Helper)  to  Everyone : Many papers will not allow you to publish if your code is not available. It must be made available in stable manner, for example hosted at GitHub or Zenodo (you can see here for the Bioinformatics Journal if you go to Types of Manuscript then scroll down to Software https://academic.oup.com/bioinformatics/pages/instructions_for_authors#Types%20of%20Manuscript)
+12:16:33 From  John Munnoch (Helper)  to  Everyone : so you can start typing in his various commands leighton has up, the most important is the install ones
+13:18:43 From  Leighton (instructor/host)  to  Everyone : Is everyone back from lunch? Quick thumbs up if you are…
+13:19:09 From  Leighton (instructor/host)  to  Everyone : Thanks!
+13:44:29 From  David Mark (Helper)  to  Everyone : Remember to be careful with capitalisation when you're telling ggplot where to take data from. It'll be able to read lifeExp but not lifeexp
+13:58:34 From  Steven Ford (instructor/host)  to  Leighton (instructor/host)(Direct Message) : about 7 minutes left
+13:58:47 From  Leighton (instructor/host)  to  Steven Ford (instructor/host)(Direct Message) : I’ll just push through this section - should take until about 10 past
+13:59:00 From  Steven Ford (instructor/host)  to  Leighton (instructor/host)(Direct Message) : Cool
+14:21:51 From  David Mark (Helper)  to  Everyone : https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+14:22:17 From  David Mark (Helper)  to  Everyone : Quick reference for what you can do with ggplot
+14:43:19 From  Charlotte von Koppenfels  to  Everyone : this would look cool as a video with each plot as one frame
+14:44:36 From  Emma Hobbs (Helper)  to  Everyone : You can animate your plots in R to show how data changes, for example, over time
+14:44:39 From  Emma Hobbs (Helper)  to  Everyone : https://towardsdatascience.com/animating-your-data-visualizations-like-a-boss-using-r-f94ae20843e3
+14:45:38 From  Emma Hobbs (Helper)  to  Everyone : You can then create a 'notebook' in R, and write this out to a HTML file so anyone with a internet browser can look at your animated plot
+14:47:55 From  Leighton (instructor/host)  to  Everyone : https://strathsci.qualtrics.com/jfe/form/SV_9QWVy6kyrnvJDx4
+15:15:46 From  Steven Ford (instructor/host)  to  Leighton (instructor/host)(Direct Message) : about 5 minutes until the next scheduled break
+15:30:14 From  Leighton (instructor/host)  to  Everyone : If you get chance, please could yo leave feedback on this morning’s OpenRefine session at https://strathsci.qualtrics.com/jfe/form/SV_0V8p0JfeichPeOW
+16:06:41 From  John Munnoch (Helper)  to  Everyone : Do you know which version of R you installed?
+16:07:55 From  John Munnoch (Helper)  to  Everyone : If you open R (not Rstduio) you can check by clicking R on the top left and about R)
+16:21:21 From  Leighton (instructor/host)  to  Everyone : Please do complete the R feedback survey for this afternoon: https://strathsci.qualtrics.com/jfe/form/SV_24vlQ5NOAI0prZs
+16:22:16 From  Leighton (instructor/host)  to  Everyone : Post-workshop survey: https://carpentries.typeform.com/to/UgVdRQ?slug=2021-05-04-strathclyde-online
+16:23:14 From  Angelika (helper)  to  Everyone : Etherpad: https://pad.carpentries.org/2021-05-04-strathclyde-online
+16:23:49 From  Rhona Cowan  to  Everyone : thank you!
+16:23:51 From  Jess Tallis  to  Everyone : thank you so much! was really great and helpful! :) 
+16:23:53 From  Florentina Winkelmann  to  Everyone : Thank you so much! I’ve learned loads, and am looking forward to applying it to my work/data!
+16:24:01 From  Chloe Reihill  to  Everyone : Thank you!
+16:24:01 From  Emilia Christofi  to  Everyone : Thank you!
+16:25:19 From  Leighton (instructor/host)  to  Everyone : https://github.com/sipbs-compbiol/2021-05-04-strathclyde-online/wiki
+16:26:13 From  Leighton (instructor/host)  to  Everyone : Old course feedback: https://github.com/StAResComp/2019-05-30-standrews/wiki
