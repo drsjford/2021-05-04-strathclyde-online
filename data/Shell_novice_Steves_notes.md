@@ -15,7 +15,7 @@ I recommend that you tidy up your desktop (perhaps put everything into a folder 
 
 We’re going to start an adventure in coding – it’s just like any language – practise is key– so just follow along. What I start put in the chat of you have, or haven’t done any coding before and what coding languages you’ve used. 
 
-Try and follow me with your typing, but don’t fall to far behind. I will show you all a couple of shortcuts early on to which will reduce the amount of typing you need to do. If I move onto something else, while you’re still typing away, just sit-back and let me do the work, and join in whenever you’re ready. SWC has full notes online, so you can catch up at the breaks or during the exercises.
+Software/Data Carpentries is a 'live coding' experience(!): we both go through the code as a group. When we (and that includes the instructors and helpers) hit a bump in the raod we work together as a community to work the problem. The teaching sessions are in blocks so try your best to follow me with your typing. I will show you all a couple of shortcuts early on to which will reduce the amount of typing you need to do. If I move onto something else, while you’re still typing away, just sit-back and let me do the work, and join in whenever you’re ready. Software/Data Carpentries has full notes online, so you can catch up at the breaks or during the exercises.
 
 ## Introduction 
 
@@ -28,7 +28,7 @@ This is what my first experience of computers was:
 
 <img width="512" alt="Sinclair-ZX81" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Sinclair-ZX81.png/512px-Sinclair-ZX81.png"/>
 
- It plugged into the family TV and files were loaded and saved on a tape recorder (which was like an old fashioned, analogue MP3 player). The user would type commands onto the keyboard, anf the commands are written on the keyboard (if you look closely enough). If you wanted to use computers you had to *code*, using the command line interface (or CLS). 
+It plugged into the family TV and files were loaded and saved on a tape recorder (which was like an old fashioned, analogue MP3 player). The user would type commands onto the keyboard, anf the commands are written on the keyboard (if you look closely enough). If you wanted to use computers you had to *code*, using the command line interface (or CLS). 
  
  About 10 years later I bought one of these to write my final year dissertation and PhD on. *Actually Id didnt have enough money to buy the 1040ST, only the cheaper 520ST)
 
@@ -47,6 +47,7 @@ This morning we will look at Unix as a shell program. A shell is like a simple p
 We'll be using a version of Unix called Bash. Bash started in 1979 as Bsh (which stood for [Bourne Shell](https://en.wikipedia.org/wiki/Bourne_shell), after it's creator, Stephen Bourne). About 10 years later it was updated and re-written as Bash (which stood for the Bourne again Shell).
 
 ### Off script exercise
+
 Type $
 
 `echo “Hello World” `
@@ -65,34 +66,45 @@ Note that the text after the comment hasn’t shown up: this is because the text
 
 ### Essential shorts (off script)
 
-Two tricks: the arrow keys and the tab key. 
+I want to show you some important shortcuts what will save you typing time as we work through the material both for Unix and Rstudio. There are two tricks: the arrow keys and the tab key. 
 
 These are shortcuts that will mean you don’t have to rewrite lines of code several times.
-Press the arrow key once and twice and you will see the previous code lines appear. The lines can be reused, or modified.
+
+Press the arrow key once and twice and you will see the previous code lines appear. The lines can be reused, or modified. Re-run your Hello World commands.
 
 Type ec and then tab. You will see the shell fills in the code for you. I’ll be using tab a lot so just try it a few times and make sure use know where your tab button is.
 
+However, be really careful of your spaces! Don't put a space in your command line where I don't have one, and don't do double spaces. A space to Unix means your moving onto the next part of the command line.
+
 ### Back on script
 
-Try the ls and ks examples
+Try the ls and ks examples (where the ks gives and error, as described in the SW pages)
  
 Just to say that we’re not going to do Nellie exercises. You can go through it yourself over lunch if you want, but we’re compressing a 4:30 hr session into about 2:30 hours, so somethings got to go.
 
 ## Navigating files and directories (folders)
 
-If you get lost’ in your directory type 
+First of all lets take a look at the file structure of folders (although we will use the word directory).
+
+This is the example of file structure from the SW website.
+
+<img width="512" alt="SWC directory structure" src="http://swcarpentry.github.io/shell-novice/fig/filesystem.svg"/>
+
+See the text in the SW instructions. The path of the Users directory is /Users.
+
+<img width ="512" alt = SWC directory structure2" src = "http://swcarpentry.github.io/shell-novice/fig/home-directories.svg"/>
+
+See the text in the SW instructions. The path of the Larry directory is /Users/Larry.
+
+We are going to be jumping around the folder structure and so we need to make sure that if you get lost’ you can laways get back to where you started. If I type 
 
 `cd`
 
 only and it will get you back to your home directory. I'll give an example of ‘getting lost’ by going to the root directory and then getting back ‘re-spawn’.
 
-Do the pwd (print working directory) examples.
-
-Go to the folders diagrams on the SWC pages. Read the text and use the marker to highlight the parts of the file structure with the tablet pen. We call this a ‘path’.
-
+Do the pwd (print working directory) examples in the SWC notes.
 
 Look at the ls –F  file and highlight command-option-argument. The ls gives a list, the –F shows the different types of file (which are coloured anyway).
-
 
 Look at the syntax (the arrangement of words in a language). We have:
 1. command
@@ -186,7 +198,7 @@ The $ sign is also used to say ‘get the value of a variable’.
 Using nano to set up scripts (*.sh files) But you don’t need the .sh extension (but it’s probably a useful convension). 
 
 # Finding things
-If you buy a book it has an index at the back. We now accept that the index of a book is a given, but it was a revolutionary innovation that helped in searching for information). I was an undergrad before google and even before journals started putting abstracts and keywords in electronic format. We had to search by a topic called ‘Chemical Abstracts’ they were huge books where all the keywords for papers were listed together with abstracts from papers…)
+If you buy a book it has an index at the back. We now accept that the index of a book is a given, but it was a revolutionary innovation that helped in searching for information). I was an undergrad before google and even before journals started putting abstracts and keywords in electronic format. We had to search by a topic called ‘Chemical Abstracts’ they were huge books where all the keywords for papers were listed together, the keywords would direct you to another book (or series of books) of abstracts, and then those abstracts would point you to theproper reference.) 
 
 Grep – stands for global search (ie search somewhere you specify) for a regular expression (ie search for something you specify) and print.
 
